@@ -1,0 +1,17 @@
+{% extends 'login/login_layout.html' %}
+{% block content %}
+
+<div class="login-page">
+  <div class="form">
+      <form class="login-form" action="{% url 'login:user_signup' %}" method='post'>
+      {% csrf_token %}
+      <input type="text" placeholder="ймення?" name='username'/>
+      <input type="password" placeholder="придумай кодове слово" name='password'/>
+      <button type='submit'>стати козаком</button>
+      <p class="message">Вже козак? <a href="{% url 'login:user_login' %}"> Зайти в Курінь!</a></p>
+      <p class="msg">{{ error }}</p>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

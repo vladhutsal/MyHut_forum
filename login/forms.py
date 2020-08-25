@@ -11,7 +11,7 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(required=True,
         widget=forms.PasswordInput(attrs={'placeholder': 'Твоє кодове слово?'}))
 
-    def clean(self, *args, **kwargs):
+    def clean(self):
         username = self.cleaned_data.get('username').lower()
         password = self.cleaned_data.get('password')
         if username and password:
@@ -21,7 +21,7 @@ class UserLoginForm(forms.Form):
                     raise forms.ValidationError('Кодове слово не вірне!')
             except ObjectDoesNotExist:
                 raise forms.ValidationError('Нема такого козака!')
-        return super(UserLoginForm, self).clean(*args, **kwargs)
+        return super(UserLoginForm, self).clean()
 
 
 class UserRegForm(forms.ModelForm):
@@ -36,9 +36,11 @@ class UserRegForm(forms.ModelForm):
             'username',
             'password'
         ]
+
     def clean(self):
         username = self.cleaned_data.get('username').lower()
         username_queryset = User.objects.filter(username=username)
+
         if username_queryset.count():
             raise forms.ValidationError('Такий козак вже є в Курені!')
         return username

@@ -19,14 +19,15 @@ def user_login(request):
         
 
 def user_signup(request):
-    if request.method == 'POST':
-        form = UserRegForm(request.POST)
-        if form.is_valid() == True:
-                form.clean_username()
-                form.save()
-                return redirect('login:user_login')
-
-    return render(request, 'login/signup.html')
+    form = UserRegForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        name = form.cleaned_data.get('username')
+        passw = form.cleaned_data.get('password')
+        new_user = authenticate(username=name, password=passw)
+        login(request, new_user)
+        return redirect('homepage:home')
+    return render(request, 'login/signup.html', {'form': form})
 
 
 def user_logout(request):

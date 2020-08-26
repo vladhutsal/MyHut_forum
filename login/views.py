@@ -33,10 +33,3 @@ def user_signup(request):
 def user_logout(request):
     logout(request)
     return redirect('login:user_login')
-
-def test(request):
-    form = UserCreationForm
-    context = {
-        'form': form,
-    }
-    return render(request, 'login/test.html', context)

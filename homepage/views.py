@@ -8,12 +8,17 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.shortcuts import render, redirect
 
+from homepage.models import Topic, Comment, Tag
+
 # return render(request, 'homepage/error.html', {'error': })
 
 def home(request):
     if request.user.is_authenticated is False:
         return redirect('login:user_login')
     else:
-        return render(request, 'homepage/home.html', {
+        topic_names = Topic.objects.all()
+        context = {
             'name': request.user,
-        })
+            'topic_names': topic_names
+            }
+        return render(request, 'homepage/home.html', context)

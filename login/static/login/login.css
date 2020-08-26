@@ -49,10 +49,10 @@
   font-size: 12px;
 }
 
-.msg {
+.form .msg {
   margin: 15px 0 0;
   color: #c44f4f;
-  font-size: 12px;
+  font-size: 16px;
   text-decoration: none;
 }
 

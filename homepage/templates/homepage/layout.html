@@ -4,13 +4,12 @@
     <meta charset="utf-8"/>
     <title>{% block title %}{% endblock %}</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'homepage/site.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/homepage.css' %}"/>
 </head>
 
 <body>
 <div class="topnav">
   <li>
-{% comment %} Придумати як скоротити кількість однакового коду. If? {% endcomment %}
     <a {% if request.path == '/' %}id="active"{% endif %}
         href="{% url 'homepage:home' %}">Курінь</a>
 

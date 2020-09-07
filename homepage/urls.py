@@ -6,6 +6,7 @@ app_name = 'homepage'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path("test", views.test, name="test"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

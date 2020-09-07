@@ -2,63 +2,34 @@
 
 /*nav bar*/
 
-.topnav {
-    list-style: none;
-    overflow: hidden;
-    background-color: #333;
-    font-family: Console, Monospace, sans-serif
+
+
+.navbar {
+    background-color: rgb(61, 61, 61);
+    font-family: Console, Monospace, sans-serif;
+    padding: 0px;
   }
+
+.navbar-toggler {
+  margin: 8px;
+}
   
-  .topnav li a {
-    display: block;
-    color: rgb(250, 250, 250);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    float: left;
-  }
-  
-  .topnav li a:hover {
-    background-color: #111;
-  }
-
-  #active {
-    background-color: #51a0b4;
-  }
-
-  #signout {
-    float: right;
-  }
-
-  /* Homepage */
-
-.topicdiv {
-  background-color: rgb(231, 231, 231);
-  border-radius: 7px;
-  overflow: hidden;
-  padding: 5px 10px;
-  margin: center;
-
-  
+.navbar-nav li a {
+  color: rgb(250, 250, 250) !important;
 }
 
-.topicdiv .left {
-  float: left;
+.nav-item:hover {
+  background-color: rgb(37, 37, 37);
 }
 
-.topicdiv .left p:first-child {
-  font-weight: bolder;
-  font-size: 22px;
-  font-family: "Roboto", sans-serif;
+.nav-item {
+  padding: 8px;
 }
 
-.topicdiv .left p {
-  font-size: 16px;
-  font-family: "Roboto", sans-serif;
+#active {
+  background-color:#ff6f69;
 }
 
-.topicdiv .right {
-  float: right;
-  padding-right: 40px;
-
+.navbar-nav {
+  width: 100%;
 }

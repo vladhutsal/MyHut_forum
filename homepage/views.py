@@ -22,3 +22,6 @@ def home(request):
             'topic_names': topic_names
             }
         return render(request, 'homepage/home.html', context)
+
+def test(request):
+    return render(request, 'homepage/test.html')

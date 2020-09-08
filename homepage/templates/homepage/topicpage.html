@@ -1,24 +1,20 @@
 {% extends 'homepage/layout.html' %}
 
-{% block title %}Homepage{% endblock title %}
+{% block title %}
+Topic Page
+{% endblock %}
 
-{% block head%}
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'homepage/homepage.css' %}">
+{% block head %}
 {% endblock %}
 
 {% block content %}
-    <p>Список топіків</p>
-    <hr>
-
     {% for topic_name in topic_names %}
         <div class="container-fluid"> 
             <div class="row">
             <div class="col-7 col-md-10 px-0 table-col">
-                <a href="{% url 'homepage:topic' topic_name.pk %}">
-                    <h4>{{ topic_name.title }}</h4>
-                </a>
+                <h4>{{ topic_name.title }}</h4>
                 <p id="descr">{{ topic_name.text }}</p>
+
             </div>
 
             <div class="col-5 col-md-2 px-0 table-col">
@@ -28,6 +24,4 @@
             </div>
         </div>
     {% endfor %}
-
-
- {% endblock %}
+{% endblock %}

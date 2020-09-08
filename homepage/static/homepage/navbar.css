@@ -5,26 +5,27 @@
     padding: 0px;
   }
 
-.navbar-toggler {
+.navbar-toggl-style {
   margin: 8px;
 }
-  
-.navbar-nav li a {
-  color: rgb(250, 250, 250) !important;
+
+.navbar-list-style {
+  width: 100%;
 }
 
-.nav-item:hover {
-  background-color: rgb(37, 37, 37);
-}
+  .navbar-list-style li a {
+    color: rgb(250, 250, 250) !important;
+  }
 
-.nav-item {
-  padding: 8px;
-}
+  .nav-list-elevment-style:hover {
+    background-color: rgb(37, 37, 37);
+  }
+
+  .nav-list-elevment-style {
+    padding: 8px;
+  }
 
 #active {
   background-color:#ff6f69;
 }
 
-.navbar-nav {
-  width: 100%;
-}

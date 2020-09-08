@@ -25,3 +25,11 @@ def home(request):
 
 def test(request):
     return render(request, 'homepage/test.html')
+
+def topic_page(request, topic_id):
+    topic_names = Topic.objects.all()
+    context = {
+        'name': request.user,
+        'topic_names': topic_names
+    }
+    return render(request, 'homepage/topicpage.html', context)

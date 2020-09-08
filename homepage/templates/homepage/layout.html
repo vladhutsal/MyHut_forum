@@ -13,7 +13,7 @@
 <body>
   <nav class="navbar navbar-light navbar-expand-sm">
     <button type="button" 
-            class="navbar-toggler btn-group-toggle btn-block btn-primary" 
+            class="navbar-toggler navbar-toggl-style btn-group-toggle btn-block btn-primary" 
             data-toggle="collapse"
             data-target="#menu-collapse"
             aria-expanded="false"
@@ -22,17 +22,17 @@
     </button>
 
     <div class="collapse navbar-collapse" id="menu-collapse">
-      <ul class="navbar-nav">
-        <li class="nav-item" {% if request.path == '/' %}id="active"{% endif %}>
+      <ul class="navbar-nav navbar-list-style">
+        <li class="nav-item nav-list-elevment-style" {% if request.path == '/' %}id="active"{% endif %}>
           <a class="nav-link" href="{% url 'homepage:home' %}">Курінь</a>
         </li>
 
-        <li class="nav-item" {% if request.path == '/test' %}id="active"{% endif %}>
+        <li class="nav-item nav-list-elevment-style" {% if request.path == '/test' %}id="active"{% endif %}>
           <a class="nav-link"
             href="{% url 'homepage:test' %}">Моя кімната</a>
         </li>
 
-        <li class="nav-item ml-auto">
+        <li class="nav-item nav-list-elevment-style ml-auto">
           <a class="nav-link"
             href="{% url 'login:user_logout' %}">Вийти</a>
         </li>

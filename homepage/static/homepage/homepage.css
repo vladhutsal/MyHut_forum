@@ -6,3 +6,9 @@
 .table-col {
   border: 2px solid black;
 }
+
+#descr {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

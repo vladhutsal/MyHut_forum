@@ -1,14 +1,55 @@
 {% extends 'homepage/layout.html' %}
+
 {% block title %}Homepage{% endblock %}
+
+{% block head%}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/homepage.css' %}">
+{% endblock head %}
+
 {% block content %}
+
 <p>Список топіків</p>
 <hr>
 {{ topic }}
 
+{% for topic_name in topic_names %}
+<div class="container-fluid"> 
+    <div class="row">
+      <div class="col-7 col-md-10 px-0 table-col">
+        <p>{{topic_name}}</p>
+      </div>
+
+      <div class="col-5 col-md-2 px-0 table-col">
+        <p>col 2</p>
+      </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="card-columns">
+    <div class="card">
+        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <div class="card-body">
+            <h4 class="card-title">Title</h4>
+            <p class="card-text">Text</p>
+        </div>
+    </div>
+    <div class="card">
+        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <div class="card-body">
+            <h4 class="card-title">Title</h4>
+            <p class="card-text">Text</p>
+        </div>
+    </div>
+</div>
+
+
+
 <div class='topicdiv'>
     <div class='left'>
-        <p>Topic name</p>
-        <p>{% lorem 40 w random %}</p>
+        <p></p>
+        <p></p>
     </div>
 
     <div class='right'>

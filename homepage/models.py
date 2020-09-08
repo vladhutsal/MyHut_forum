@@ -31,6 +31,7 @@ class Comment(models.Model):
    
 
 class RelatedComment(models.Model):
+    text = models.TextField()
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=5)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     

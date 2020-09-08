@@ -1,0 +1,24 @@
+-------- Home Page --------
+1. "add/delete/edit topic" feature
+2. 
+
+Ideas homepage:
+
+
+
+
+-------- Topic Page --------
+1. "add comment" feature
+
+Ideas topicpage:
+ 
+
+
+
+
+-------- Navbar --------
+1. Add recent topics links to navbar - close, pin etc
+2.
+
+Ideas navbar:
+Renew collapse toggle

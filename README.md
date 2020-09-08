@@ -1,4 +1,4 @@
-# Forum
+# Forum app
 
 
-RoadMap:
+RoadMap: https://github.com/vladhutsal/Forum/blob/master/roadmap.txt

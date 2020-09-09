@@ -1,6 +1,6 @@
 -------- Home Page --------
 1. "add/delete/edit topic" feature
-2. 
+2. add login_required decorator
 
 Ideas homepage:
 

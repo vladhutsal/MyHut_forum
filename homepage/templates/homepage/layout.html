@@ -24,17 +24,17 @@
     <div class="collapse navbar-collapse" id="menu-collapse">
       <ul class="navbar-nav navbar-list-style">
         <li class="nav-item nav-list-elevment-style" {% if request.path == '/' %}id="active"{% endif %}>
-          <a class="nav-link" href="{% url 'homepage:home' %}">Курінь</a>
+          <a class="nav-link" href="{% url 'homepage:home' %}">Hut</a>
         </li>
 
         <li class="nav-item nav-list-elevment-style" {% if request.path == '/test' %}id="active"{% endif %}>
           <a class="nav-link"
-            href="{% url 'homepage:test' %}">Моя кімната</a>
+            href="{% url 'homepage:test' %}">My room</a>
         </li>
 
         <li class="nav-item nav-list-elevment-style ml-auto">
           <a class="nav-link"
-            href="{% url 'login:user_logout' %}">Вийти</a>
+            href="{% url 'login:user_logout' %}">Get out</a>
         </li>
       </ul>    
     </div>

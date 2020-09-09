@@ -5,23 +5,38 @@ Topic Page
 {% endblock %}
 
 {% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/topicpage.css' %}">
 {% endblock %}
 
 {% block content %}
-    {% for topic_name in topic_names %}
-        <div class="container-fluid"> 
-            <div class="row">
-            <div class="col-7 col-md-10 px-0 table-col">
-                <h4>{{ topic_name.title }}</h4>
-                <p id="descr">{{ topic_name.text }}</p>
 
-            </div>
-
-            <div class="col-5 col-md-2 px-0 table-col">
+<!-- topic -->
+    <div class="container-fluid"> 
+        <div class="row">
+        <div>
+            <h4>{{ topic_object.title }}</h4>
+            <div>
                 <p>Comments count</p>
                 <p>Rating</p>
             </div>
-            </div>
         </div>
+            <p id="descr">{{ topic_object.text }}</p>
+        </div>
+    </div>
+
+<!-- comments -->
+    {% for topic_comment in topic_comments %}
+        <p style="font-weight: bold">{{ topic_comment.user }}</p>
+        <p>{{ topic_comment.text }}</p>
     {% endfor %}
+
+<!-- add comment -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.text }}
+        <button type="submit">Add comment</button>
+    </form>
+
+
 {% endblock %}

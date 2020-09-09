@@ -28,11 +28,14 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=5)
     text = models.TextField()
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-   
 
+    def __str__(self):
+        return 'comment: {}, user: {}, topic: {}'.format(self.text, self.user, self.topic)
+    
+   
 class RelatedComment(models.Model):
-    text = models.TextField()
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=5)
+    text = models.TextField()
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     
 class Tag(models.Model):

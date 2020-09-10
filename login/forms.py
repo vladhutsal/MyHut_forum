@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=150, required=True,
-        widget=forms.TextInput(attrs={'placeholder': 'What`s your Hut alias, cossack?'}))
+        widget=forms.TextInput(attrs={'placeholder': 'Your Hut alias, cossack?'}))
     password = forms.CharField(required=True,
         widget=forms.PasswordInput(attrs={'placeholder': 'Code word?'}))
 

@@ -7,9 +7,9 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=150, required=True,
-        widget=forms.TextInput(attrs={'placeholder': 'Курінне ймення, козаче?'}))
+        widget=forms.TextInput(attrs={'placeholder': 'What is your alias in our Hut, cossack?'}))
     password = forms.CharField(required=True,
-        widget=forms.PasswordInput(attrs={'placeholder': 'Твоє кодове слово?'}))
+        widget=forms.PasswordInput(attrs={'placeholder': 'Code word?'}))
 
     def clean(self):
         username = self.cleaned_data.get('username').lower()
@@ -18,17 +18,17 @@ class UserLoginForm(forms.Form):
             try:
                 user = User.objects.get(username=username)
                 if not user.check_password(password):
-                    raise forms.ValidationError('Кодове слово не вірне!')
+                    raise forms.ValidationError('Your code word is wrong!')
             except ObjectDoesNotExist:
-                raise forms.ValidationError('Нема такого козака!')
+                raise forms.ValidationError('There are no cossack like you in our Hut!')
         return super(UserLoginForm, self).clean()
 
 
 class UserRegForm(forms.ModelForm):
     username = forms.CharField(max_length=150, required=True,
-            widget=forms.TextInput(attrs={'placeholder': 'Як тебе звуть?'}))
+            widget=forms.TextInput(attrs={'placeholder': 'Your cossack alias?'}))
     password = forms.CharField(required=True,
-            widget=forms.PasswordInput(attrs={'placeholder': 'Придумай кодове слово'}))
+            widget=forms.PasswordInput(attrs={'placeholder': 'What is your code word?'}))
 
     class Meta:
         model = User
@@ -37,10 +37,10 @@ class UserRegForm(forms.ModelForm):
             'password'
         ]
 
-    def clean(self):
+    def clean_username(self):
         username = self.cleaned_data.get('username').lower()
-        username_queryset = User.objects.filter(username=username)
+        existed_usernames = User.objects.filter(username=username)
 
-        if username_queryset.count():
-            raise forms.ValidationError('Такий козак вже є в Курені!')
+        if existed_usernames.count():
+            raise forms.ValidationError('That cossack is already in our Hut!')
         return username

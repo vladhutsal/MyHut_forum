@@ -7,8 +7,8 @@
       {% csrf_token %}
       {{ form.username }}
       {{ form.password }}
-      <button type='submit'>зайти в курінь</button>
-      <p class="message"><a href="{% url 'login:user_signup' %}">Стати козаком</a></p>
+      <button type='submit'>Enter Hut</button>
+      <p class="message"><a href="{% url 'login:user_signup' %}">Or Become a Cossack here!</a></p>
     </form>
     {% if form.non_field_errors %}
       {% for error in form.non_field_errors %}

@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 
 
 class Topic(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=5)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, unique=True)
     tags = models.ManyToManyField('Tag')
     text = models.TextField()
@@ -25,7 +25,7 @@ class Topic(models.Model):
     
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=5)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
 
@@ -34,7 +34,7 @@ class Comment(models.Model):
     
    
 class RelatedComment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=5)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     

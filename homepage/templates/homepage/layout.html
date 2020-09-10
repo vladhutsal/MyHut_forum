@@ -52,34 +52,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-
-{% comment %} <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>{% block title %}{% endblock %}</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'homepage/homepage.css' %}"/>
-</head>
-
-<body>
-<div class="topnav">
-  <li>
-    <a {% if request.path == '/' %}id="active"{% endif %}
-        href="{% url 'homepage:home' %}">Курінь</a>
-
-    <a id='signout' href="{% url 'login:user_logout' %}">Вийти</a>
-  </li>
-</div>
-
-<div>
-    {% block content %}
-    {% endblock %}
-
-    <footer>
-    </footer>
-</div>
-</body>
-</html> {% endcomment %}

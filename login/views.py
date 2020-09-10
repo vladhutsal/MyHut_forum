@@ -1,5 +1,4 @@
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.models import User
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -21,16 +20,13 @@ def user_login(request):
 def user_signup(request):
     form = UserRegForm(request.POST or None)
     if form.is_valid():
-        form.save()
-        name = form.cleaned_data.get('username')
-        passw = form.cleaned_data.get('password')
-        new_user = authenticate(username=name, password=passw)
+        user = form.save(commit=False)
+        password = form.cleaned_data.get('password')
+        user.set_password(password)
+        user.save()
+        new_user = authenticate(username=user.username, password=password)
         login(request, new_user)
         return redirect('homepage:home')
-    
-    error = form.errors
-    a = error.get('username')
-    print(a)
     return render(request, 'login/signup.html', {'form': form})
 
 

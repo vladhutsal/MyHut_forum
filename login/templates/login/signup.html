@@ -1,20 +1,25 @@
 {% extends 'login/login_layout.html' %}
-{% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'login/signup.css' %}"/>
+
+{% block title %}Become a Cossack{% endblock title %}
+
+{% block head%}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'login/login.css' %}"/>
+{% endblock head %}
 
 {% block content %}
-
 <div class="login-page">
   <div class="form">
-    <form class="login-form" method='post'>
+    <form method='post'>
       {% csrf_token %}
       {{ form.username }}
       {{ form.password }}
       <button type='submit'>Become a Cossack!</button>
       <p class="message">Already registered? <a href="{% url 'login:user_login' %}"> Log in here</a></p>
-      {% if form.errors %}
-          <p id="msg">{{ form.errors.username }}</p>
-      {% endif %}
+      
+      {% if form.username.errors %}
+          <p class="msg">{{ form.username.errors.as_text|cut:"* " }}</p>
+      {% endif %} 
     </form>
 
   </div>

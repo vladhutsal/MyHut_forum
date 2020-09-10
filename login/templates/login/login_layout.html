@@ -6,19 +6,13 @@
         {% block title %}
         {% endblock %}
     </title>
-
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'login/login.css' %}"/>
+    {% block head %}
+    {% endblock head %}
 </head>
 
-
-<div class="body-content">
     {% block content %}
     {% endblock %}
 
-    <footer>
-        <p></p>
-    </footer> 
 </div>
 </body>
 </html>

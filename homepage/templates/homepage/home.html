@@ -8,8 +8,19 @@
 {% endblock %}
 
 {% block content %}
-    <p class="topic-title">Hut topics:</p>
+<div>
+    <ul class="hut-topics-top-bar">
+        <li>
+            <button class="add-topic-button" type="submit">
+                <a href="{% url 'homepage:add_topic' %}">Add Topic</a>
+            </button>
+        </li>
+        <li>
+            <p class="hut-topics">Hut topics:</p>
+        </li>
+    </ul>
     <hr>
+</div>
 
     {% for topic_name in topic_names %}
         <div class="container-fluid table"> 
@@ -28,6 +39,5 @@
             </div>
         </div>
     {% endfor %}
-
 
  {% endblock %}

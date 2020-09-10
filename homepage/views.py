@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 
 from homepage.models import Topic, Comment, Tag
-from homepage.forms import CommentForm
+from homepage.forms import CommentForm, TopicForm
 
 # return render(request, 'homepage/error.html', {'error': })
 
@@ -32,9 +32,21 @@ def topic_page(request, topic_id):
 
     topic_comments = Comment.objects.filter(topic=current_topic)
     context = {
-        'name': request.user,
         'form': comment_form,
         'topic_object': current_topic,
         'topic_comments': topic_comments
     }
-    return render(request, 'homepage/topicpage.html', context)
+    return render(request, 'homepage/topics_page.html', context)
+
+def add_topic(request):
+    form = TopicForm(request.POST or None)
+    if form.is_valid():
+        topic = form.save(commit=False)
+        topic.user = User.objects.get(username=request.user)
+        topic.save()
+        print(topic)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'homepage/add_topic.html', context)

@@ -18,7 +18,7 @@ Ideas topicpage:
 
 -------- Navbar --------
 1. Add recent topics links to navbar - close, pin etc
-2.
+2. Add "Where are you now" on navbar close to HUT button
 
 Ideas navbar:
 Renew collapse toggle

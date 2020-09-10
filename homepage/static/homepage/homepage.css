@@ -1,11 +1,7 @@
 .page-content {
   margin-left: 20px;
   margin-right: 20px;
-}
-
-.topic-title {
-  padding-top: 10px;
-  font-weight: bold;
+  margin-top: 20px;
 }
 
 .table-col {
@@ -17,6 +13,35 @@
   border: 1px solid black;
   margin-bottom: 30px;
 }
+
+.hut-topics {
+  padding-top: 10px;
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.hut-topics-top-bar li {
+  display: inline-block;
+  list-style: none;
+}
+
+.add-topic-button {
+  font-family: Console, Monospace, sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: rgb(61, 61, 61);
+  border: 0;
+}
+
+.add-topic-button a {
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 14px;
+}
+
+  .add-topic-button:hover,.form button:active,.form button:focus {
+    background: #ff6f69;
+  }
 
 #descr {
   text-overflow: ellipsis;

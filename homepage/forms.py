@@ -6,7 +6,29 @@ from django.forms import ModelForm
 
 from homepage.models import Topic, Comment, Tag
 
-class CommentForm(ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['text']
+        fields = ('text', )
+
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ('title', 'tags', 'text')
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Title here'
+            }),
+            'text': forms.Textarea(attrs={
+                    'rows': 5,
+                    'placeholder': 'Here`s your topic goes', 
+                    'class': 'form-control'
+                    }),
+            'tags': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Add tags'
+            })
+        } 
+                

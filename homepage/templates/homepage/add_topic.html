@@ -1,0 +1,30 @@
+{% extends 'homepage/layout.html' %}
+{% block title %}Add Topic{% endblock title %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/add_topic.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+    <form method="POST">
+    {% csrf_token %}
+        <div class="row">
+            <div class="col-9">
+                {{ form.title }}
+            </div>
+            <div class="col">
+                {{ form.tags }}
+            </div>
+            <div class="container">
+                {{ form.text }}
+            </div>
+        </div>
+        <button type="submit" class="add-topic-button">Add Topic</button>
+    </form>
+</div>
+
+{% endblock content %}

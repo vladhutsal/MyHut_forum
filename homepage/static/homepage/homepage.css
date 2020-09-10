@@ -3,8 +3,19 @@
   margin-right: 20px;
 }
 
+.topic-title {
+  padding-top: 10px;
+  font-weight: bold;
+}
+
 .table-col {
-  border: 2px solid black;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.table {
+  border: 1px solid black;
+  margin-bottom: 30px;
 }
 
 #descr {

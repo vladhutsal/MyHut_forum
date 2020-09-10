@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 # organize by tags
 # recent Topics
 # search by title
-# comments
+# comments #
 # reccomend this topic? rating of topics
 
 # count topics by user
@@ -16,7 +16,7 @@ from django.contrib.auth import get_user_model
 class Topic(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, unique=True)
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', blank=True)
     text = models.TextField()
     rating = models.PositiveSmallIntegerField(default=0)
 

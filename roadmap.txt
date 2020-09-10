@@ -1,24 +1,26 @@
 -------- Home Page --------
-1. "add/delete/edit topic" feature
-2. add login_required decorator
+1. "add topic" feature - done
+2. "edit topic" feature
+3. "delete topic" feature
+4. add login_required decorator
+5. 
 
-Ideas homepage:
+
 
 
 
 
 -------- Topic Page --------
-1. "add comment" feature
+1. "add comment" feature - done
+2. add "related comments" feature
 
-Ideas topicpage:
+
  
-
 
 
 
 -------- Navbar --------
 1. Add recent topics links to navbar - close, pin etc
 2. Add "Where are you now" on navbar close to HUT button
+3. Renew collapse toggle
 
-Ideas navbar:
-Renew collapse toggle

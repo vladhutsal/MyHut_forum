@@ -27,6 +27,10 @@ def user_signup(request):
         new_user = authenticate(username=name, password=passw)
         login(request, new_user)
         return redirect('homepage:home')
+    
+    error = form.errors
+    a = error.get('username')
+    print(a)
     return render(request, 'login/signup.html', {'form': form})
 
 

@@ -1,4 +1,7 @@
 {% extends 'login/login_layout.html' %}
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login/signup.css' %}"/>
+
 {% block content %}
 
 <div class="login-page">
@@ -7,14 +10,13 @@
       {% csrf_token %}
       {{ form.username }}
       {{ form.password }}
-      <button type='submit'>стати козаком</button>
-      <p class="message">Вже козак? <a href="{% url 'login:user_login' %}"> Зайти в Курінь!</a></p>
+      <button type='submit'>Become a Cossack!</button>
+      <p class="message">Already registered? <a href="{% url 'login:user_login' %}"> Log in here</a></p>
+      {% if form.errors %}
+          <p id="msg">{{ form.errors.username }}</p>
+      {% endif %}
     </form>
-    {% if form.non_field_errors %}
-      {% for error in form.non_field_errors %}
-        <p class="msg">{{ error }}</p>
-      {% endfor %}
-    {% endif %}
+
   </div>
 </div>
 

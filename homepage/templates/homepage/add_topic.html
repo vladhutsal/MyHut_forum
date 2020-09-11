@@ -8,22 +8,16 @@
 
 {% block content %}
 
-
-<div class="container-fluid">
-    <form method="POST">
-    {% csrf_token %}
-        <div class="row">
-            <div class="col-9">
-                {{ form.title }}
-            </div>
-            <div class="col">
-                {{ form.tags }}
-            </div>
-            <div class="container">
-                {{ form.text }}
-            </div>
+<div class="container-fluid add-div">
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.title }}
+        {{ form.tags }}
+        <div class="container">
+            {{ form.text }}
         </div>
-        <button type="submit" class="add-topic-button">Add Topic</button>
+
+        <button type="submit" class="add-button">Add Topic</button>
     </form>
 </div>
 

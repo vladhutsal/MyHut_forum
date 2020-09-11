@@ -12,3 +12,11 @@
   .add-topic-button:hover,.form button:active,.form button:focus {
     background: #ff6f69;
   }
+
+.add-div {
+  width: 1000px;
+}
+
+.margin-add-topic {
+  margin: 20px;
+}

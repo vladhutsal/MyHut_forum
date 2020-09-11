@@ -23,20 +23,27 @@ def test(request):
     return render(request, 'homepage/test.html')
 
 def topic_page(request, topic_id):
-    current_topic = Topic.objects.get(pk=topic_id)
+    topic_object = Topic.objects.get(pk=topic_id)
     comment_form = CommentForm(request.POST or None)
     if comment_form.is_valid():
         user = request.user
         text = comment_form.data.get('text')
-        Comment.objects.create(user=user, text=text, topic=current_topic)
+        Comment.objects.create(user=user, text=text, topic=topic_object)
 
-    topic_comments = Comment.objects.filter(topic=current_topic)
+    topic_comments = Comment.objects.filter(topic=topic_object)
     context = {
         'form': comment_form,
-        'topic_object': current_topic,
+        'topic_object': topic_object,
         'topic_comments': topic_comments
     }
     return render(request, 'homepage/topics_page.html', context)
+
+def delete_comment(request, comment_id):
+    current_comment = Comment.objects.get(id=comment_id)
+    current_comment.delete()
+    topic_id = current_comment.topic.id
+    return redirect('homepage:topic', topic_id=topic_id)
+
 
 def add_topic(request):
     form = TopicForm(request.POST or None)
@@ -45,7 +52,7 @@ def add_topic(request):
         topic.user = User.objects.get(username=request.user)
         topic.save()
         print(topic)
-
+        return redirect('homepage:home')
     context = {
         'form': form
     }

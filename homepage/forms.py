@@ -10,6 +10,14 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text', )
+        widgets = {
+            'text': forms.Textarea(attrs={
+                'placeholder': 'Your comment goes here',
+                'class': 'form-control',
+                'rows': 3,
+                'cols': 40
+            })
+        }
 
 
 class TopicForm(forms.ModelForm):
@@ -18,16 +26,16 @@ class TopicForm(forms.ModelForm):
         fields = ('title', 'tags', 'text')
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-control',
+                'class': 'form-control margin-add-topic',
                 'placeholder': 'Title here'
             }),
             'text': forms.Textarea(attrs={
                     'rows': 5,
                     'placeholder': 'Here`s your topic goes', 
-                    'class': 'form-control'
+                    'class': 'form-control margin-add-topic'
                     }),
             'tags': forms.TextInput(attrs={
-                'class': 'form-control',
+                'class': 'form-control margin-add-topic',
                 'placeholder': 'Add tags'
             })
         } 

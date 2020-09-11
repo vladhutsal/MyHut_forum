@@ -24,3 +24,8 @@
 2. Add "Where are you now" on navbar close to HUT button
 3. Renew collapse toggle
 
+
+
+-------- Additional --------
+1. organize CSS
+

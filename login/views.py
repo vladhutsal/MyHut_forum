@@ -7,6 +7,8 @@ from login.forms import UserLoginForm, UserRegForm
 
 
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('homepage:home')
     form = UserLoginForm(request.POST or None)
     if form.is_valid():
         name = form.cleaned_data.get('username')
@@ -18,6 +20,8 @@ def user_login(request):
         
 
 def user_signup(request):
+    if request.user.is_authenticated:
+        return redirect('homepage:home')
     form = UserRegForm(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)

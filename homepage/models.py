@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes.models import ContentType
 
 # create Topic
 # organize by tags
@@ -11,7 +12,6 @@ from django.contrib.auth.models import User
 
 # count topics by user
 # count all topics on main page
-
 
 class Topic(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -15,7 +15,8 @@ class CommentForm(forms.ModelForm):
                 'placeholder': 'Your comment goes here',
                 'class': 'form-control',
                 'rows': 3,
-                'cols': 40
+                'cols': 40,
+                'name': 'text'
             })
         }
 

@@ -1,0 +1,17 @@
+.page-content {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+  
+  .table {
+    border: 1px solid black;
+    margin-bottom: 30px;
+    padding: 10px;
+    padding-right: 30px;
+    border-radius: 3px;
+  }
+
+.container-fluid {
+  padding-top: 20px;
+}

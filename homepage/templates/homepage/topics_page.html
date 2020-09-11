@@ -49,16 +49,8 @@ Topic Page
         </button>
 
         <div class="dropdown-menu" aria-labelledby="comment-action-menu">
-          <a class="dropdown-item" href="#">Reply</a>
-          {% if has_delete_permition == True %}
-                <a type="submit" 
-                  class="dropdown-item"
-                  href="{% url 'homepage:delete_comment' topic_comment.id %}">
-                  Delete
-                </a>
-          {% endif %}
-
           {% if request.user.username == topic_comment.user.username %}
+            <a class="dropdown-item" href="#">Reply</a>
             <form method="POST">
               {% csrf_token %}
               <a type="submit" 
@@ -66,7 +58,21 @@ Topic Page
                  href="#">
                  Edit
               </a>
+              <a type="submit" 
+                class="dropdown-item"
+                href="{% url 'homepage:delete_comment' topic_comment.id %}">
+                Delete
+              </a>
             </form>
+          {% else %}
+            <a class="dropdown-item" href="#">Reply</a>
+            {% if has_delete_permition == True %}
+              <a type="submit" 
+                class="dropdown-item"
+                href="{% url 'homepage:delete_comment' topic_comment.id %}">
+                Delete
+              </a>         
+            {% endif %}
           {% endif %}
         </div>
       </div>

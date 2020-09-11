@@ -41,6 +41,7 @@
   border-radius: 2px;
   color: #FFFFFF;
   font-size: 14px;
+  margin-top: 10px;
   
 }
 
@@ -70,19 +71,3 @@
   .action-button:hover {
     background: #69a5ff;
   }
-
-.add-comment-button {
-  font-family: Console, Monospace, sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: rgb(61, 61, 61);
-  border: 0;
-  border-radius: 2px;
-  text-decoration: none;
-  color: #FFFFFF;
-  font-size: 14px;
-}
-
-.add-comment-button:hover,.form button:active,.form button:focus {
-  background: #ff6f69;
-}

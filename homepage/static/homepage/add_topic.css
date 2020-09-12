@@ -1,22 +1,12 @@
-.add-topic-button {
-    font-family: Console, Monospace, sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: rgb(61, 61, 61);
-    border: 0;
-    text-decoration: none;
-    color: #FFFFFF;
-    font-size: 14px;
-  }
-  
-  .add-topic-button:hover,.form button:active,.form button:focus {
-    background: #ff6f69;
-  }
-
-.add-div {
-  width: 1000px;
+/* style for homepage forms meta */
+.add-topic-field {
+  margin: 10px;
 }
 
-.margin-add-topic {
-  margin: 20px;
+.page-content {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 50px;
 }
+
+/* add topic page style */

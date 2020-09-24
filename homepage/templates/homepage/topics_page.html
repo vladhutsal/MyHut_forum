@@ -1,97 +1,113 @@
 {% extends 'homepage/layout.html' %}
-
-{% block title %}
-Topic Page
-{% endblock %}
+{% block title %}Topic Page{% endblock title %}
 
 {% block head %}
  {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'homepage/topic_page.css' %}">
-{% endblock %}
+{% endblock head %}
 
 {% block content %}
+<div class="container-fluid px-2">
 
-<!-- topic title and text -->
-<div class="container-fluid"> 
-  <div>
-    <h4>{{ topic_object.title }}</h4>
+<!-- Title and info begin -->
+  <div class="container">
+    <div class="row mb-2">
+      <h2>{{ topic_object.title }}</h2>
+    </div>
+      <ul class="border rounded header d-flex justify-content-around">
+        <li>Rating</li>
+        <li>Author</li>
+        <li>Date</li>
+    </ul>
+  </div>  
+<!-- end -->
 
-<!-- can delete permission button -->
-    <form action="{% url 'homepage:delete_perm' topic_object.id %}" method="POST">
-      {% csrf_token %}
-      <button type="submit" class="add-button">
-          Gain comments-delete access
-      </button>
-    </form>
+<!-- Text begin -->
+  <div class="container mt-3">
+    <p>{{ topic_object.text }}</p>
   </div>
-  <hr>
-  <div>
-    <p>Rating</p>
-  <hr>
+<!-- end -->
+
+<!-- Comments begin -->
+  <div class="container mt-3">
+    <h5 id="">Comments:</h5>
+    {% for topic_comment in topic_comments %}
+      <div class="panel panel-default">
+        <div class="panel-heading">Panel Heading</div>
+        <div class="panel-body">Panel body</div>
+      </div>
+    {% endfor %}  
   </div>
-    <p id="descr">{{ topic_object.text }}</p>
+  </div>
 </div>
+
+
 
 <!-- comments -->
-<div class="container-fluid">
-  <h5>Comments:</h5>
-  {% for topic_comment in topic_comments %}
-  <div class="media table">
-    <div class="media-body">
-  <!-- dropdown comments menu -->   
-      <div class="dropdown dropleft float-right">
-        <button class="action-button dropdown-toggle"
-                href="#"
-                role="button"
-                id="comment-action-menu"
-                data-toggle="dropdown"
-                aria-haspopup="true" 
-                aria-expanded="false">
-                actions
-        </button>
-        <div class="dropdown-menu" aria-labelledby="comment-action-menu">
-          {% if request.user.username == topic_comment.user.username %}
-            <a class="dropdown-item" href="#">Reply</a>
-            <form method="POST">
-              {% csrf_token %}
-              <a type="submit" 
-                 class="dropdown-item"
-                 href="#">
-                 Edit
-              </a>
-              <a type="submit" 
-                class="dropdown-item"
-                href="{% url 'homepage:delete_comment' topic_comment.id %}">
-                Delete
-              </a>
-            </form>
-          {% else %}
-            <a class="dropdown-item" href="#">Reply</a>
-            {% if has_delete_permition == True %}
-              <a type="submit" 
-                class="dropdown-item"
-                href="{% url 'homepage:delete_comment' topic_comment.id %}">
-                Delete
-              </a>         
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
-  <!-- comments to render -->
-      <h5 style="font-weight: bold">{{ topic_comment.user }}</h5>
-      <hr>
-      <p>{{ topic_comment.text }}</p>
-    </div>
-  </div>
-  {% endfor %}
-</div>
+{% comment %} <div class="container-fluid">
 
-<!-- add comment -->
+
+<!-- add comment field -->
 <div class="container-fluid">
   <form method="POST" action="{% url 'homepage:add_comment' topic_object.id %}">
     {% csrf_token %}
     {{ form.text }}
     <button type="submit" class="add-button">Add comment</button>
   </form>
-</div>
-{% endblock %}
+</div> {% endcomment %}
+
+
+
+
+{% endblock content %}
+
+
+
+
+
+    {% comment %} <form class=""action="{% url 'homepage:delete_perm' topic_object.id %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="add-button">
+          Gain comments-delete access
+      </button>
+    </form> {% endcomment %}
+
+
+
+{% comment %} <div class="dropdown dropleft float-right">
+          <button class="action-button dropdown-toggle"
+                  href="#"
+                  role="button"
+                  id="comment-action-menu"
+                  data-toggle="dropdown"
+                  aria-haspopup="true" 
+                  aria-expanded="false">
+                  actions
+          </button>
+          <div class="dropdown-menu" aria-labelledby="comment-action-menu">
+            {% if request.user.username == topic_comment.user.username %}
+              <a class="dropdown-item" href="#">Reply</a>
+              <form method="POST">
+                {% csrf_token %}
+                <a type="submit" 
+                  class="dropdown-item"
+                  href="#">
+                  Edit
+                </a>
+                <a type="submit" 
+                  class="dropdown-item"
+                  href="{% url 'homepage:delete_comment' topic_comment.id %}">
+                  Delete
+                </a>
+              </form>
+            {% else %}
+              <a class="dropdown-item" href="#">Reply</a>
+              {% if has_delete_permition == True %}
+                <a type="submit" 
+                  class="dropdown-item"
+                  href="{% url 'homepage:delete_comment' topic_comment.id %}">
+                  Delete
+                </a>         
+              {% endif %}
+            {% endif %}
+          </div> {% endcomment %}

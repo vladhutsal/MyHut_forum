@@ -1,19 +1,17 @@
 {% extends 'homepage/layout.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+  {% block title %}Topic Page{% endblock title %}
   {% block head %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'homepage/topic_page.css' %}">
-    {% block title %}Topic Page{% endblock title %}
   {% endblock head %}
-</head>
-{% block body %}
+
+{% block content %}
 <div class="container-fluid px-2">
 
 <!-- Title and info begin -->
   <div class="container">
-    <div class="row mb-2">
+    <div class="titles mb-2">
       <h2>{{ topic_object.title }}</h2>
     </div>
       <ul class="border rounded header d-flex justify-content-around">
@@ -32,13 +30,21 @@
 
 <!-- Comments begin -->
   <div class="container mt-3">
-    <h5 id="">Comments:</h5>
-    {% for topic_comment in topic_comments %}
-      <div class="panel panel-default">
-        <div class="panel-heading">Panel Heading</div>
-        <div class="panel-body">Panel body</div>
-      </div>
-    {% endfor %}  
+    <h5 class="titles">Comments:</h5>
+    <div class="container mt-3">
+      {% for topic_comment in topic_comments %}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ topic_comment.user }}</h5>
+            <p class="card-text">{{ topic_comment.text }}</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Go somewhere</a> 
+          </div>
+        </div>
+      {% endfor %}  
+    </div>
+    
   </div>
   </div>
 </div>
@@ -61,7 +67,7 @@
 
 
 
-{% endblock body %}
+{% endblock content %}
 
 
 

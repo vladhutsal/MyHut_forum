@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.db.models import Count
 
 from homepage.models import Topic, Comment, Tag
@@ -50,7 +50,7 @@ def add_topic(request):
         topic.user = User.objects.get(username=request.user)
         topic.save()
         print(topic)
-        return redirect('homepage:home_page')
+        return redirect('homepage:home')
     context = {
         'form': form
     }

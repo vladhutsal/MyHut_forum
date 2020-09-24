@@ -1,6 +1,6 @@
 /* Navbar */
 
-/* .navbar {
+.navbar {
     background-color: rgb(61, 61, 61);
     font-family: Console, Monospace, sans-serif;
     padding: 0px;
@@ -28,10 +28,10 @@
 
 #active {
   background-color:#ff6f69;
-} */
+}
 
 /* Control */
-/* 
+
 .add-button {
   font-family: Console, Monospace, sans-serif;
   text-transform: uppercase;
@@ -69,4 +69,4 @@
   
   .action-button:hover {
     background: #69a5ff;
-  } */
+  }

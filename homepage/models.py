@@ -1,17 +1,13 @@
 from django import forms
 from django.db import models
+from django.db.models import Count
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
-# create Topic
 # organize by tags
 # recent Topics
 # search by title
-# comments #
 # reccomend this topic? rating of topics
-
-# count topics by user
-# count all topics on main page
 
 class Topic(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

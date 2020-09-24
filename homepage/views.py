@@ -1,8 +1,9 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate
+from django.db.models import Count
 
 from homepage.models import Topic, Comment, Tag
 from homepage.forms import CommentForm, TopicForm
@@ -14,11 +15,10 @@ def home_page(request):
     if request.user.is_authenticated is False:
         return redirect('login:user_login')
     else:
-        topic_names = Topic.objects.all()
-
+        annotated_topic_queryset = Topic.objects.annotate(comm_count=Count('comment'))
         context = {
             'name': request.user,
-            'topic_names': topic_names
+            'topic_queryset': annotated_topic_queryset
             }
         return render(request, 'homepage/home_page.html', context)
 

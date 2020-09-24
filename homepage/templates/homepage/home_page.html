@@ -22,18 +22,18 @@
   <hr>
 </div>
 
-  {% for topic_name in topic_names %}
+  {% for topic in topic_queryset %}
     <div class="container-fluid table"> 
       <div class="row table-col">
         <div class="col-7 col-md-10 px-0">
-          <a href="{% url 'homepage:topic' topic_name.pk %}">
-            <h4>{{ topic_name.title }}</h4>
+          <a href="{% url 'homepage:topic' topic.pk %}">
+            <h4>{{ topic.title }}</h4>
           </a>
-          <p id="descr">{{ topic_name.text }}</p>
+          <p id="descr">{{ topic.text }}</p>
         </div>
 
         <div class="col-5 col-md-2 px-0 table-col">
-          <p>Comments count</p>
+          <p id='right-side'>Comments count: {{ topic.comm_count }}</p>
           <p>Rating</p>
         </div>
       </div>

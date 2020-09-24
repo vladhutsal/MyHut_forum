@@ -7,39 +7,67 @@
   {% endblock head %}
 
 {% block content %}
-<div class="container-fluid px-2">
+<div class="container-fluid">
 
 <!-- Title and info begin -->
   <div class="container">
-    <div class="titles mb-2">
+    <div class="my-3">
       <h2>{{ topic_object.title }}</h2>
     </div>
+    <div class="container-sm">
       <ul class="border rounded header d-flex justify-content-around">
         <li>Rating</li>
         <li>Author</li>
         <li>Date</li>
-    </ul>
+      </ul> 
+    </div>
   </div>  
 <!-- end -->
 
 <!-- Text begin -->
-  <div class="container mt-3">
+  <div class="container my-4 px-4">
     <p>{{ topic_object.text }}</p>
+    <hr>
   </div>
 <!-- end -->
 
-<!-- Comments begin -->
-  <div class="container mt-3">
-    <h5 class="titles">Comments:</h5>
+<!-- Comments title, add comment begin -->
+  <div class="container">
+    <div class="container d-flex justify-content-between">
+        <h5 class="my-auto">Comments:</h5>
+        <button class="my-auto add-button"
+              type="button"
+              data-toggle="collapse"
+              data-target="#addComment">
+              Add comment
+        </button>
+    </div>
     <div class="container mt-3">
+      <div class="collapse" id="addComment">
+        <div class="container">
+          <form method="POST" action="{% url 'homepage:add_comment' topic_object.id %}">
+            {% csrf_token %}
+            {{ form.text }}
+            <button class="ml-3 add-button" type="submit">post</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+<!-- end -->
+
+<!-- Comments begin -->
+    <div class="container">
       {% for topic_comment in topic_comments %}
-        <div class="card">
+        <div class="card my-2">
           <div class="card-body">
             <h5 class="card-title">{{ topic_comment.user }}</h5>
             <p class="card-text">{{ topic_comment.text }}</p>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary">Go somewhere</a> 
+            <div class="container d-flex">
+              <button class="add-button">Dropdown</button>
+            </div>
           </div>
         </div>
       {% endfor %}  
@@ -48,24 +76,7 @@
   </div>
   </div>
 </div>
-
-
-
-<!-- comments -->
-{% comment %} <div class="container-fluid">
-
-
-<!-- add comment field -->
-<div class="container-fluid">
-  <form method="POST" action="{% url 'homepage:add_comment' topic_object.id %}">
-    {% csrf_token %}
-    {{ form.text }}
-    <button type="submit" class="add-button">Add comment</button>
-  </form>
-</div> {% endcomment %}
-
-
-
+<!-- end -->
 
 {% endblock content %}
 
@@ -82,7 +93,7 @@
 
 
 
-{% comment %} <div class="dropdown dropleft float-right">
+{% comment %} <div class="dropdown drop float-right">
           <button class="action-button dropdown-toggle"
                   href="#"
                   role="button"

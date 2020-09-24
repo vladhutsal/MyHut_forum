@@ -1,12 +1,14 @@
 {% extends 'homepage/layout.html' %}
-{% block title %}Topic Page{% endblock title %}
-
-{% block head %}
- {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'homepage/topic_page.css' %}">
-{% endblock head %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/topic_page.css' %}">
+    {% block title %}Topic Page{% endblock title %}
+  {% endblock head %}
+</head>
+{% block body %}
 <div class="container-fluid px-2">
 
 <!-- Title and info begin -->
@@ -59,7 +61,7 @@
 
 
 
-{% endblock content %}
+{% endblock body %}
 
 
 

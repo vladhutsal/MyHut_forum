@@ -15,7 +15,7 @@
       <h2 class="align-self-center">{{ topic_object.title }}</h2>
       <form class="align-self-center" action="{% url 'homepage:gain_delete_perm' topic_object.id %}" method="POST">
         {% csrf_token %}
-        <button type="submit" class="action-button">
+        <button type="submit" class="add-button">
             Gain comments-delete access
         </button>
       </form>
@@ -36,7 +36,7 @@
 <div class="container">
   <div class="container d-flex justify-content-between">
       <h5 class="my-auto">Comments:</h5>
-      <button class="my-auto add-button"
+      <button class="my-auto action-button"
             type="button"
             data-toggle="collapse"
             data-target="#addComment">
@@ -49,7 +49,7 @@
         <form method="POST" action="{% url 'homepage:add_comment' topic_object.id %}">
           {% csrf_token %}
           {{ form.text }}
-          <button class="ml-3 add-button" type="submit">post</button>
+          <button class="ml-3 mt-2 add-button" type="submit">post</button>
         </form>
       </div>
     </div>

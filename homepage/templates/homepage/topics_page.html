@@ -6,54 +6,53 @@
     <link rel="stylesheet" type="text/css" href="{% static 'homepage/topic_page.css' %}">
   {% endblock head %}
 
-{% block content %}
-<div class="container-fluid">
-
 <!-- Title, delete accsess, info, topic begin -->
-  <div class="container">
-    <div class="container d-flex justify-content-between my-3">
-      <h2 class="align-self-center">{{ topic_object.title }}</h2>
+  {% block page %}{{ topic_object.title }}{% endblock page %}
+    {% block head_btn %}
       <form class="align-self-center" action="{% url 'homepage:gain_delete_perm' topic_object.id %}" method="POST">
         {% csrf_token %}
-        <button type="submit" class="add-button">
+        <button type="submit" class="forum-button">
             Gain comments-delete access
         </button>
       </form>
-    </div>
+  {% endblock head_btn %}
+
+  {% block content %}
+  <div class="container">
     <ul class="border rounded muted-table d-flex justify-content-around">
       <li class="text-muted">Rating: {{ topic_object.rating }}</li>
       <li class="text-muted">Author: {{ topic_object.user }}</li>
       <li class="text-muted">Date: 25.09.2020</li>
     </ul> 
-  </div>  
+  </div>
 <!-- end -->
 
-<div class="container my-4">
-  <p class="text-justify">{{ topic_object.text }}</p>
-</div>
+  <div class="container my-4">
+    <p class="text-justify">{{ topic_object.text }}</p>
+  </div>
 
 <!-- Comments title, add comment begin -->
-<div class="container">
-  <div class="container d-flex justify-content-between">
-      <h5 class="my-auto">Comments:</h5>
-      <button class="my-auto action-button"
-            type="button"
-            data-toggle="collapse"
-            data-target="#addComment">
-            Add comment
-      </button>
-  </div>
-  <div class="container mt-3">
-    <div class="collapse" id="addComment">
-      <div class="container">
-        <form method="POST" action="{% url 'homepage:add_comment' topic_object.id %}">
-          {% csrf_token %}
-          {{ form.text }}
-          <button class="ml-3 mt-2 add-button" type="submit">post</button>
-        </form>
+  <div class="container">
+    <div class="container d-flex justify-content-between">
+        <h5 class="my-auto">Comments:</h5>
+        <button class="my-auto forum-button action"
+              type="button"
+              data-toggle="collapse"
+              data-target="#addComment">
+              Add comment
+        </button>
+    </div>
+    <div class="container mt-3">
+      <div class="collapse" id="addComment">
+        <div class="container">
+          <form method="POST" action="{% url 'homepage:add_comment' topic_object.id %}">
+            {% csrf_token %}
+            {{ form.text }}
+            <button class="ml-3 mt-2 forum-button post" type="submit">post</button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 <!-- end -->
 
 <!-- Comments begin -->
@@ -72,7 +71,7 @@
             </ul>
             <div class="d-flex">
               <div class="dropdown d-flex col-auto align-self-right">
-                <button class="action-button dropdown-toggle align-self-center" 
+                <button class="forum-button action dropdown-toggle align-self-center" 
                   id="actions" 
                   type="button" 
                   data-toggle="dropdown">
@@ -88,7 +87,7 @@
           </div>
         </div>
       </div>
-    {% endfor %}  
+    {% endfor %} 
   </div>
 <!-- end -->
 
@@ -108,7 +107,7 @@
 
 
 {% comment %} <div class="dropdown drop float-right">
-          <button class="action-button dropdown-toggle"
+          <button class="forum-button action dropdown-toggle"
                   href="#"
                   role="button"
                   id="comment-action-menu"

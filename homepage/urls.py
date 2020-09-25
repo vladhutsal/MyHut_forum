@@ -9,8 +9,6 @@ urlpatterns = [
     path('', views.home_page, name='home'),
     path("topic/<int:topic_id>", views.topic_page, name="topic"),
 
-    path("add_topic", views.add_topic_page, name="add_topic"),
-
     path("add_comment/<int:topic_id>", views.add_comment, name="add_comment"),
     path("delete_comment/<int:comment_id>", views.delete_comment, name="delete_comment"),
     path('delete_comment_perm/<int:topic_id>', views.delete_comment_permission, name="gain_delete_perm"),

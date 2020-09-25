@@ -10,15 +10,24 @@ from homepage.forms import CommentForm, TopicForm
 
 # return render(request, 'homepage/error.html', {'error': })
 
+# add topic desription for 300 symbols
+
 # Page views
 def home_page(request):
     if request.user.is_authenticated is False:
         return redirect('login:user_login')
     else:
+        form = TopicForm(request.POST or None)
+        if form.is_valid():
+            topic = form.save(commit=False)
+            topic.user = User.objects.get(username=request.user)
+            topic.save()
+            return redirect('homepage:home')
         annotated_topic_queryset = Topic.objects.annotate(comm_count=Count('comment'))
         context = {
             'name': request.user,
-            'topic_queryset': annotated_topic_queryset
+            'topic_queryset': annotated_topic_queryset,
+            'form': form
             }
         return render(request, 'homepage/home_page.html', context)
 
@@ -41,19 +50,6 @@ def topic_page(request, topic_id):
 def test(request):
     return render(request, 'homepage/test.html')
 
-
-def add_topic_page(request):
-    form = TopicForm(request.POST or None)
-    if form.is_valid():
-        topic = form.save(commit=False)
-        topic.user = User.objects.get(username=request.user)
-        topic.save()
-        print(topic)
-        return redirect('homepage:home')
-    context = {
-        'form': form
-    }
-    return render(request, 'homepage/add_topic.html', context)
 
 
 # Comment views

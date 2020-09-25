@@ -27,16 +27,16 @@ class TopicForm(forms.ModelForm):
         fields = ('title', 'tags', 'text')
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-control add-topic-field',
-                'placeholder': 'Title here'
+                'class': 'form-control',
+                'placeholder': 'Topic title'
             }),
             'text': forms.Textarea(attrs={
                     'rows': 5,
-                    'placeholder': 'Here`s your topic goes', 
-                    'class': 'form-control add-topic-field'
+                    'placeholder': 'Topic text', 
+                    'class': 'form-control'
                     }),
             'tags': forms.TextInput(attrs={
-                'class': 'form-control add-topic-field',
+                'class': 'form-control',
                 'placeholder': 'Add tags'
             })
         } 

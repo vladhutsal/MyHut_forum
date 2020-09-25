@@ -1,43 +1,84 @@
 {% extends 'homepage/layout.html' %}
 
-{% block title %}Homepage{% endblock title %}
+  {% block title %}Homepage{% endblock title %}
 
-{% block head%}
-{% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'homepage/home_page.css' %}">
-{% endblock %}
+  {% block head%}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/home_page.css' %}">
+  {% endblock head %}
 
-{% block content %}
-<div>
-  <ul class="hut-topics-top-bar">
-    <li>
-      <button class="add-button" type="submit">
-        <a href="{% url 'homepage:add_topic' %}">Add Topic</a>
-      </button>
-    </li>
-    <li>
-      <p class="hut-topics">Hut topics:</p>
-    </li>
-  </ul>
-  <hr>
-</div>
+  {% block page %}Topics{% endblock page %}
+  
+  {% block head_btn %}
+    <button class="my-auto forum-button action"
+          type="button"
+          data-toggle="collapse"
+          data-target="#addComment">
+          Add topic:
+    </button>
+  {% endblock head_btn %}
 
-  {% for topic in topic_queryset %}
-    <div class="container-fluid table"> 
-      <div class="row table-col">
-        <div class="col-7 col-md-10 px-0">
-          <a href="{% url 'homepage:topic' topic.pk %}">
-            <h4>{{ topic.title }}</h4>
-          </a>
-          <p id="descr">{{ topic.text }}</p>
-        </div>
+  {% block content %}
+  <div class="container">
 
-        <div class="col-5 col-md-2 px-0 table-col">
-          <p id='right-side'>Comments count: {{ topic.comm_count }}</p>
-          <p>Rating</p>
-        </div>
+<!-- Topics header, form begin -->
+  <div class="container mt-3">
+    <div class="collapse" id="addComment">
+      <div class="container">
+          <form method="POST" class="form-group">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="col">
+              {{ form.title }}
+            </div>
+            <div class="col-2">
+              {{ form.tags }}
+            </div>
+          </div>
+          <div class="mt-3">
+            {{ form.text }}
+          </div>
+          <button class="ml-3 mt-2 forum-button post" type="submit">post</button>
+        </form>
       </div>
     </div>
-  {% endfor %}
+  </div>
+<!-- end -->
 
- {% endblock %}
+<!-- Comments begin -->
+  <div class="container">
+    {% for topic in topic_queryset %}
+      <div class="card my-2">
+        <div class="card-body">
+          <a href="{% url 'homepage:topic' topic.pk %}">
+            <h5 class="card-title">{{ topic.title }}</h5>
+          </a>
+          <p class="card-text text-truncate">{{ topic.text }}</p>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <ul class="muted-table mb-0 mr-auto d-sm-block d-md-flex row justify-content-start col-10">
+              <li class="text-muted col-6">Comments: {{ topic.comm_count }}</li>
+              <li class="text-muted col-6">Rating: 0</li>
+            </ul>
+            <div class="d-flex">
+              <div class="dropdown d-flex col-auto align-self-right">
+                <button class="forum-button action dropdown-toggle align-self-center" 
+                  id="actions" 
+                  type="button" 
+                  data-toggle="dropdown">
+                  actions
+                </button>
+                <div class="dropdown-menu" id="actions">
+                  <a class="dropdown-item" href="#">Reply</a>
+                  <a class="dropdown-item" href="#">Edit</a>
+                  <a class="dropdown-item" href="#">Delete</a>
+                </div>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+    {% endfor %} 
+  </div>
+  {% endblock content %}

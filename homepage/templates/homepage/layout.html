@@ -49,7 +49,17 @@
     </div>
   </nav>
 
-
+  <div class="container my-3">
+    <div class="container d-flex justify-content-between">
+        <h2 class="my-auto">
+          {% block page %}
+          {% endblock page %}
+        </h2>
+        {% block head_btn %}
+        {% endblock head_btn %}
+    </div>
+  </div>
+  
   {% block content %}
   {% endblock content %}
 

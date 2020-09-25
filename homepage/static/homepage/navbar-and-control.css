@@ -6,28 +6,21 @@
     padding: 0px;
   }
 
-.navbar-toggl-style {
-  margin: 8px;
+.nav-item {
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
-.navbar-list-style {
-  width: 40px;
+.nav-item:hover {
+  background-color: rgb(37, 37, 37);
 }
-
-  .navbar-list-style li a {
-    color: rgb(250, 250, 250) !important;
-  }
-
-  .nav-list-elevment-style:hover {
-    background-color: rgb(37, 37, 37);
-  }
-
-  .nav-list-elevment-style {
-    padding: 8px;
-  }
 
 #active {
   background-color:#ff6f69;
+}
+
+#active a {
+  color: rgb(0, 0, 0) !important;
 }
 
 /* Control */
@@ -35,12 +28,11 @@
 .add-button {
   font-family: Console, Monospace, sans-serif;
   text-transform: uppercase;
-  outline: 0;
   background: rgb(61, 61, 61);
   border: 0;
-  border-radius: 2px;
+  border-radius: 3px;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .add-button a {
@@ -60,7 +52,7 @@
   outline: 0;
   background:rgb(61, 61, 61);
   border: 0;
-  border-radius: 2px;
+  border-radius: 3px;
   color: #ffffff;
   font-size: 12px;
   

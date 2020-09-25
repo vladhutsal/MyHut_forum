@@ -13,33 +13,42 @@
 
 <body>
   <nav class="navbar navbar-light navbar-expand-sm">
-    <button type="button" 
-            class="navbar-toggler navbar-toggl-style btn-group-toggle btn-block btn-primary" 
+    <ul class="navbar-nav ml-2">
+      <li class="nav-item" {% if request.path == '/' %}id="active"{% endif %}>
+        <a class="nav-link text-white"  
+          href="{% url 'homepage:home' %}">
+          Hut</a>
+      </li>
+    </ul>
+   
+    <button class="navbar-toggler" 
+            type="button" 
             data-toggle="collapse"
-            data-target="#menu-collapse"
+            data-target="#nav-collapse"
             aria-expanded="false"
-            aria-controls="menu-collapse">
+            aria-controls="menu-collapse"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="menu-collapse">
-      <ul class="navbar-nav navbar-list-style">
-        <li class="nav-item nav-list-elevment-style" {% if request.path == '/' %}id="active"{% endif %}>
-          <a class="nav-link" href="{% url 'homepage:home' %}">Hut</a>
+    <div class="collapse navbar-collapse" id="nav-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ml-2" {% if request.path == '/test' %}id="active"{% endif %}>
+          <a class="nav-link text-white"
+            href="{% url 'homepage:test' %}">
+            My room</a>
         </li>
-
-        <li class="nav-item nav-list-elevment-style" {% if request.path == '/test' %}id="active"{% endif %}>
-          <a class="nav-link"
-            href="{% url 'homepage:test' %}">My room</a>
-        </li>
-
-        <li class="nav-item nav-list-elevment-style ml-auto">
-          <a class="nav-link"
-            href="{% url 'login:user_logout' %}">Get out</a>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item ml-2">
+          <a class="nav-link text-white"
+            href="{% url 'login:user_logout' %}">
+            Get out</a>
         </li>
       </ul>    
     </div>
   </nav>
+
 
   {% block content %}
   {% endblock content %}

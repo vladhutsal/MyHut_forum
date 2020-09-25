@@ -42,8 +42,7 @@ def test(request):
     return render(request, 'homepage/test.html')
 
 
-# Topic views
-def add_topic(request):
+def add_topic_page(request):
     form = TopicForm(request.POST or None)
     if form.is_valid():
         topic = form.save(commit=False)

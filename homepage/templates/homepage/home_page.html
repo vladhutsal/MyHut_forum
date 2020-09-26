@@ -1,6 +1,6 @@
 {% extends 'homepage/layout.html' %}
 
-  {% block title %}Homepage{% endblock title %}
+  {% block title %}{{ block.super }}{% endblock title %}
 
   {% block head%}
     {% load static %}
@@ -21,10 +21,10 @@
   {% block content %}
   <div class="container">
 
-<!-- Topics header, form begin -->
+<!-- Topics header and form begin -->
   <div class="container mt-3">
     <div class="collapse" id="addTopic">
-      <form method="POST" class="form-group">
+      <form method="POST" class="form-group" action="{% url 'homepage:addTopic' %}">
         {% csrf_token %}
         <div class="form-row">
           <div class="col">
@@ -43,7 +43,7 @@
   </div>
 <!-- end -->
 
-<!-- Comments begin -->
+<!-- Topic list begin -->
   <div class="container">
     {% for topic in topic_queryset %}
       <div class="container">
@@ -51,7 +51,7 @@
           <div class="col-sm-10 pr-0">
             <div class="card">
               <div class="card-body">
-                <a href="{% url 'homepage:topic' topic.pk %}">
+                <a href="{% url 'homepage:topic_page' topic.pk %}">
                   <h5 class="card-title">{{ topic.title }}</h5>
                 </a>
                 <p class="card-text text-truncate">{{ topic.text }}</p>
@@ -72,23 +72,4 @@
     {% endfor %}
   </div>
   {% endblock content %}
-
-
-
-{% comment %} 
-<div class="d-flex">
-              <div class="dropdown d-flex col-auto align-self-right">
-                <button class="forum-button action dropdown-toggle align-self-center" 
-                  id="actions" 
-                  type="button" 
-                  data-toggle="dropdown">
-                  actions
-                </button>
-                <div class="dropdown-menu" id="actions">
-                  <a class="dropdown-item" href="#">Reply</a>
-                  <a class="dropdown-item" href="#">Edit</a>
-                  <a class="dropdown-item" href="#">Delete</a>
-                </div>
-              </div>
-            </div>   {% endcomment %}
             

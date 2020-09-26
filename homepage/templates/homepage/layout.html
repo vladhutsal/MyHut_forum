@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{% block title %}HUT{% endblock title %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'homepage/navbar-and-control.css' %}"/>
@@ -12,11 +12,11 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-light navbar-expand-sm">
+  <nav class="navbar sticky-top navbar-light navbar-expand-sm">
     <ul class="navbar-nav ml-2">
       <li class="nav-item" {% if request.path == '/' %}id="active"{% endif %}>
         <a class="nav-link text-white"  
-          href="{% url 'homepage:home' %}">
+          href="{% url 'homepage:home_page' %}">
           Hut</a>
       </li>
     </ul>
@@ -35,7 +35,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item ml-2" {% if request.path == '/test' %}id="active"{% endif %}>
           <a class="nav-link text-white"
-            href="{% url 'homepage:test' %}">
+            href="{% url 'homepage:user_room' %}">
             My room</a>
         </li>
       </ul>

@@ -14,7 +14,7 @@ class Topic(models.Model):
     title = models.CharField(max_length=100, unique=True)
     tags = models.ManyToManyField('Tag', blank=True)
     text = models.TextField()
-    rating = models.PositiveSmallIntegerField(default=0)
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
         return '{} ({})'.format(self.title, self.user)
@@ -24,6 +24,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
         return 'comment: {}, user: {}, topic: {}'.format(self.text, self.user, self.topic)

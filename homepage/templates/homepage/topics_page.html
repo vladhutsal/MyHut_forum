@@ -11,7 +11,7 @@
     {% block head_btn %}
       <form class="align-self-center" action="{% url 'homepage:gain_delete_perm' topic_object.id %}" method="POST">
         {% csrf_token %}
-        <button type="submit" class="forum-button">
+        <button type="submit" class="forum-button action">
             Gain comments-delete access
         </button>
       </form>
@@ -66,7 +66,15 @@
         <div class="card-footer">
           <div class="row">
             <ul class="muted-table mb-0 mr-auto d-sm-block d-md-flex row justify-content-start col-10">
-              <li class="text-muted col-6">Rating: 0</li>
+              <li class="text-muted col-6">Rating: {{ topic_comment.rating }}
+                <div>
+                  <form method="POST" action="{% url 'homepage:comment_rating_change' topic_object.id topic_comment.id %}">
+                    {% csrf_token %}
+                    <button class="" type="submit" name="up">+</button>
+                    <button class="" type="submit" name="down">-</button>
+                  </form>
+                </div>             
+              </li>
               <li class="text-muted col-6">Date: 25.09.2020</li>
             </ul>
             <div class="d-flex">

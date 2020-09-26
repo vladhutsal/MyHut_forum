@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.core.exceptions import ObjectDoesNotExist
 
-# шо робити з формами у яких однакові поля?
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=150, required=True,

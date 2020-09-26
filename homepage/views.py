@@ -78,3 +78,14 @@ def delete_comment_permission(request, topic_id):
     user = request.user
     user.user_permissions.add(permission)
     return redirect('homepage:topic', topic_id=topic_id)
+
+def comment_rating_change(request, topic_id, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    print(request.POST)
+    if 'up' in request.POST:
+        comment.rating += 1
+        comment.save()
+    elif 'down' in request.POST:
+        comment.rating -= 1
+        comment.save()
+    return redirect('homepage:topic', topic_id=topic_id)

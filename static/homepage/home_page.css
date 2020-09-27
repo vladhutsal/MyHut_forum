@@ -1,0 +1,13 @@
+.muted-table li {
+    list-style-type: none;
+  }
+
+.right-part p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.flex-dir {
+  flex-direction: column;
+}

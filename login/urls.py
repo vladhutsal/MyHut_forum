@@ -1,4 +1,3 @@
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 from . import views
 
@@ -9,5 +8,3 @@ urlpatterns = [
     path('signup/', views.user_signup, name='user_signup'),
     path('logout/', views.user_logout, name='user_logout'),
 ]
-
-urlpatterns += staticfiles_urlpatterns()

@@ -33,10 +33,10 @@
 
     <div class="collapse navbar-collapse" id="nav-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item ml-2" {% if request.path == '/test' %}id="active"{% endif %}>
+        <li class="nav-item ml-2" {% if request.path == '/my_hut/' %}id="active"{% endif %}>
           <a class="nav-link text-white"
-            href="{% url 'homepage:user_room' %}">
-            My room</a>
+            href="{% url 'my_hut:my_hut' %}">
+            My hut</a>
         </li>
       </ul>
       <ul class="navbar-nav">

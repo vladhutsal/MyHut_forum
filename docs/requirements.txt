@@ -1,0 +1,7 @@
+Django==3.1.1
+django-filter==2.3.0
+djangorestframework==3.11.1
+isort==5.4.2 -- /take a look
+Markdown==3.2.2
+Pillow==7.2.0
+wrapt==1.12.1

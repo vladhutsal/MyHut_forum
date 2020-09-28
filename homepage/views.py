@@ -1,14 +1,15 @@
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.db.models import Count
 
-from homepage.models import Topic, Comment, Tag
+from homepage.models import Topic, Comment
 from homepage.forms import CommentForm, TopicForm
 
-# add topic desription for 300 symbols
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 # Read views
 def home_page(request):
@@ -16,16 +17,19 @@ def home_page(request):
         return redirect('login:user_login')
     else:
         form = TopicForm(None)
-        annotated_topic_queryset = Topic.objects.annotate(comm_count=Count('comment'))
+        topic_queryset = Topic.objects.annotate(comm_count=Count('comment'))
+        inv_topic_queryset = topic_queryset.order_by('-pk')
         context = {
             'name': request.user,
-            'topic_queryset': annotated_topic_queryset,
+            'topic_queryset': inv_topic_queryset,
             'form': form
             }
         return render(request, 'homepage/home_page.html', context)
 
-def topic_page(request, topic_id):
-    topic_object = Topic.objects.get(pk=topic_id)
+      
+def topic_page(request, slug):
+    topic_object = get_object_or_404(Topic, slug=slug)
+
     topic_comments = Comment.objects.filter(topic=topic_object)
     user = request.user
     has_delete_permition = user.has_perm('homepage.delete_comment')
@@ -37,19 +41,15 @@ def topic_page(request, topic_id):
     }
     return render(request, 'homepage/topics_page.html', context)
 
-
-def myHut(request):
-    return render(request, 'homepage/user_room.html')
-
-
+  
 # Create views
-def add_comment(request, topic_id):
+def add_comment(request, slug):
     if request.method == "POST":
         user = request.user
         text = request.POST.get('text')
-        topic = Topic.objects.get(pk=topic_id)
+        topic = get_object_or_404(Topic, slug=slug)
         Comment.objects.create(user=user, text=text, topic=topic)
-    return redirect('homepage:topic_page', topic_id=topic_id)
+    return redirect('homepage:topic_page', slug=topic.slug)
 
 def addTopic(request):
     form = TopicForm(request.POST)
@@ -57,18 +57,27 @@ def addTopic(request):
         topic = form.save(commit=False)
         topic.user = User.objects.get(username=request.user)
         topic.save()
-        return redirect('homepage:topic_page', topic_id=topic.id)
+        return redirect('homepage:topic_page', slug=topic.slug)
     return redirect('homepage:home_page')
 
+  
+def myHut(request):
+    return render(request, 'homepage/user_room.html')
 
+  
 # Delete views
 def delete_comment(request, comment_pk):
     current_comment = Comment.objects.get(pk=comment_pk)
     current_comment.delete()
+    slug = current_comment.topic.slug
+    return redirect('homepage:topic_page', slug=slug)
+
+# Update views
+def delete_comment_permission (request, topic_id):
     topic_id = current_comment.topic.id
     return redirect('homepage:topic_page', topic_id=topic_id)
 
-
+  
 # Update views
 def delete_comment_permission(request, topic_id):
     content_type = ContentType.objects.get_for_model(Comment)
@@ -96,8 +105,6 @@ def comment_rating_change(request, topic_id, comment_id):
             pass
     return redirect('homepage:topic_page', topic_id=topic_id)
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 
 @api_view()
 def hello_world(request):

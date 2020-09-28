@@ -21,9 +21,9 @@
   {% block content %}
   <div class="container">
 
-<!-- Topics header and form begin -->
+<!-- Topics header, add topic begin -->
   <div class="container mt-3">
-    <div class="collapse" id="addTopic">
+    <div class="collapse {% if not topic_queryset %} show {% endif %}" id="addTopic">
       <form method="POST" class="form-group" action="{% url 'homepage:addTopic' %}">
         {% csrf_token %}
         <div class="form-row">
@@ -51,7 +51,7 @@
           <div class="col-sm-10 pr-0">
             <div class="card">
               <div class="card-body">
-                <a href="{% url 'homepage:topic_page' topic.pk %}">
+                <a href="{% url 'homepage:topic_page' topic.slug %}">
                   <h5 class="card-title">{{ topic.title }}</h5>
                 </a>
                 <p class="card-text text-truncate">{{ topic.text }}</p>

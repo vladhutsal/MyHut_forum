@@ -43,9 +43,9 @@
         </button>
     </div>
     <div class="container mt-3">
-      <div class="collapse" id="addComment">
+      <div class="collapse {% if not topic_comments %} show {% endif %}" id="addComment">
         <div class="container">
-          <form method="POST" action="{% url 'homepage:add_comment' topic_object.id %}">
+          <form method="POST" action="{% url 'homepage:add_comment' topic_object.slug %}">
             {% csrf_token %}
             {{ form.text }}
             <button class="ml-3 mt-2 forum-button post" type="submit">post<vote/button>

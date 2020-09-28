@@ -1,9 +1,10 @@
 env/
-.vscode
-*.sqlite3
+static/admin
 media/
+.vscode
 *.pyc
 
+*.sqlite3
 **/migrations/**
 !**/migrations
 !**/migrations/__init__.py

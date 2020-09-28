@@ -7,11 +7,9 @@ from django.db.models import Count
 from homepage.models import Topic, Comment
 from homepage.forms import CommentForm, TopicForm
 
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
-# add topic desription for 300 symbols
-
 
 # Read views
 def home_page(request):
@@ -28,9 +26,10 @@ def home_page(request):
             }
         return render(request, 'homepage/home_page.html', context)
 
-
+      
 def topic_page(request, slug):
     topic_object = get_object_or_404(Topic, slug=slug)
+
     topic_comments = Comment.objects.filter(topic=topic_object)
     user = request.user
     has_delete_permition = user.has_perm('homepage.delete_comment')
@@ -42,7 +41,7 @@ def topic_page(request, slug):
     }
     return render(request, 'homepage/topics_page.html', context)
 
-
+  
 # Create views
 def add_comment(request, slug):
     if request.method == "POST":
@@ -51,7 +50,6 @@ def add_comment(request, slug):
         topic = get_object_or_404(Topic, slug=slug)
         Comment.objects.create(user=user, text=text, topic=topic)
     return redirect('homepage:topic_page', slug=topic.slug)
-
 
 def addTopic(request):
     form = TopicForm(request.POST)
@@ -62,7 +60,11 @@ def addTopic(request):
         return redirect('homepage:topic_page', slug=topic.slug)
     return redirect('homepage:home_page')
 
+  
+def myHut(request):
+    return render(request, 'homepage/user_room.html')
 
+  
 # Delete views
 def delete_comment(request, comment_pk):
     current_comment = Comment.objects.get(pk=comment_pk)
@@ -70,9 +72,14 @@ def delete_comment(request, comment_pk):
     slug = current_comment.topic.slug
     return redirect('homepage:topic_page', slug=slug)
 
-
 # Update views
 def delete_comment_permission (request, topic_id):
+    topic_id = current_comment.topic.id
+    return redirect('homepage:topic_page', topic_id=topic_id)
+
+  
+# Update views
+def delete_comment_permission(request, topic_id):
     content_type = ContentType.objects.get_for_model(Comment)
     permission = Permission.objects.get(
             codename="delete_comment",

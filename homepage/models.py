@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import reverse
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
+from django.db.models import Count
+
 
 # organize by tags
 # recent Topics
@@ -28,7 +30,6 @@ class Topic(models.Model):
 
     def get_absolute_url(self):
         return reverse("homepage:topic_page", kwargs={"pk": self.pk})
-
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,15 +1,15 @@
 {% extends 'homepage/layout.html' %}
-
+  {% load static %}
   {% block title %}{{ block.super }} | {{ topic_object.title }}{% endblock title %}
   {% block head %}
-    {% load static %}
+
     <link rel="stylesheet" type="text/css" href="{% static 'homepage/topic_page.css' %}">
   {% endblock head %}
 
 <!-- Title, delete accsess, info, topic begin -->
   {% block page %}{{ topic_object.title }}{% endblock page %}
     {% block head_btn %}
-      <form class="align-self-center" action="{% url 'homepage:gain_delete_perm' topic_object.id %}" method="POST">
+      <form class="align-self-center" action="{% url 'homepage:gain_delete_perm' topic_object.slug %}" method="POST">
         {% csrf_token %}
         <button type="submit" class="forum-button action">
             Gain comments-delete access
@@ -68,9 +68,10 @@
             <ul class="muted-table mb-0 mr-auto d-sm-block d-md-flex row justify-content-start col-10">
               <li class="text-muted col-6">Rating: {{ topic_comment.likes.count }}
                 <div class="d-inline-block">
-                  <form method="POST" action="{% url 'homepage:comment_rating_change' topic_object.id topic_comment.id %}">
+                  <form method="POST"
+                        action="{% url 'homepage:comment_likes' topic_object.slug topic_comment.pk %}">
                     {% csrf_token %}
-                    <button class="" type="submit" name="up">+</button>
+                    <button class="vote_up_button" type="submit" name="vote_up_button" value="topic_comment.pk">like</button>
                     <button class="" type="submit" name="down">-</button>
                   </form>
                 </div>             

@@ -3,11 +3,35 @@
 {% block title %}Login Hut{% endblock title %}
 
 {% block head %}
-  {% load static %}
+    {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'login/login.css' %}"/>
+    <script type="text/javascript" src="{% static 'script/jquery-3.5.1.js' %}"></script> 
 {% endblock head %}
 
 {% block content %}
+
+
+
+<input type="text" id="lele">
+
+<script>
+    $("#lele").change(function () {
+       var username = $(this).val();
+
+      $.ajax({
+      url: '/ajax/validate_username/',
+      data: {
+        'username': username
+      },
+      dataType: 'json',
+      success: function (data) {
+        if (data.is_taken) {
+          alert("A user with this username already exists.");
+        }
+      }
+    });
+  });
+</script>
 <div class="login-page">
   <div class="form">
     <form method='POST'>
@@ -25,5 +49,6 @@
     {% endif %}
   </div>
 </div>
+
 
 {% endblock content %}

@@ -1,5 +1,4 @@
 from django.contrib.auth import login, logout, authenticate
-
 from django.shortcuts import render, redirect
 
 from login.forms import UserLoginForm, UserRegForm
@@ -36,4 +35,4 @@ def user_signup(request):
 def user_logout(request):
     logout(request)
     return redirect('login:user_login')
-    
+

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count
 
 from homepage.models import Topic, Comment
@@ -10,6 +10,8 @@ from homepage.forms import CommentForm, TopicForm
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.http import JsonResponse
+
 
 # Read views
 def home_page(request):
@@ -41,7 +43,7 @@ def topic_page(request, slug):
     }
     return render(request, 'homepage/topics_page.html', context)
 
-  
+
 # Create views
 def add_comment(request, slug):
     if request.method == "POST":
@@ -50,6 +52,7 @@ def add_comment(request, slug):
         topic = get_object_or_404(Topic, slug=slug)
         Comment.objects.create(user=user, text=text, topic=topic)
     return redirect('homepage:topic_page', slug=topic.slug)
+
 
 def addTopic(request):
     form = TopicForm(request.POST)
@@ -60,11 +63,11 @@ def addTopic(request):
         return redirect('homepage:topic_page', slug=topic.slug)
     return redirect('homepage:home_page')
 
-  
+
 def myHut(request):
     return render(request, 'homepage/user_room.html')
 
-  
+
 # Delete views
 def delete_comment(request, comment_pk):
     current_comment = Comment.objects.get(pk=comment_pk)
@@ -72,14 +75,9 @@ def delete_comment(request, comment_pk):
     slug = current_comment.topic.slug
     return redirect('homepage:topic_page', slug=slug)
 
-# Update views
-def delete_comment_permission (request, topic_id):
-    topic_id = current_comment.topic.id
-    return redirect('homepage:topic_page', topic_id=topic_id)
 
-  
 # Update views
-def delete_comment_permission(request, topic_id):
+def gain_delete_permission(request, slug):
     content_type = ContentType.objects.get_for_model(Comment)
     permission = Permission.objects.get(
             codename="delete_comment",
@@ -87,23 +85,23 @@ def delete_comment_permission(request, topic_id):
         )
     user = request.user
     user.user_permissions.add(permission)
-    return redirect('homepage:topic_page', topic_id=topic_id)
+    return redirect('homepage:topic_page', slug=slug)
 
 
-def comment_rating_change(request, topic_id, comment_id):
+def comment_likes(request, slug, comment_id):
     comment = Comment.objects.get(pk=comment_id)
     user = request.user
-    if 'up' in request.POST:
+    if 'vote_up_button' in request.POST:
         if user in comment.likes.all():
             pass
         else:
             comment.likes.add(user)
     elif 'down' in request.POST:
-        if user in comment.likes.all():
-            comment.likes.remove(user)
-        else:
-            pass
-    return redirect('homepage:topic_page', topic_id=topic_id)
+        pass
+    return JsonResponse({
+        'result': 'succsess'
+    })
+    # return redirect('homepage:topic_page', slug=slug)
 
 
 @api_view()

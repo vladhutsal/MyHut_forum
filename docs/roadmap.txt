@@ -28,4 +28,8 @@ my topics
 -------- Additional --------
 organize CSS - done
 structure bootstrap - done
+class based views for home and topic pages
 
+test:
+- gain comment perm
+- add/delete comment/topic

@@ -4,6 +4,7 @@ media/
 .vscode
 *.pyc
 __pycache__/
+homepage/migrations/
 *.py[cod]
 
 

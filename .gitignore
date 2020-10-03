@@ -1,11 +1,10 @@
 env/
-static/admin
 media/
 .vscode
 *.pyc
-__pycache__/
-homepage/migrations/
-*.py[cod]
+**/__pycache__
+**/migrations
+*.py
 
 
 *.sqlite3

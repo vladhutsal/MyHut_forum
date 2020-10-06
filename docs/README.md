@@ -28,7 +28,22 @@ python3 manage.py runserver
   - create new user and login;
   - start new topic;
   - view the list of created topics;
-  - comment topic.
+  - comment topic;
+  - delete comment;
+  - gain accsess for deleting other people comments
  
  ## What can you do in the near future?
+ 1. Your user page:
+  - edit your user page;
+  - become an admin of the Hut site;
+  - update your picture;
+  - message other user;
  
+ 2. Topics list page:
+  - list topics through pages;
+  - add tags to your topic;
+ 
+ 3. Exact topic page:
+  - like comments and post;
+  - mark topic as favourite;
+  - sort comments;

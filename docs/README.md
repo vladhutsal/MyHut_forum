@@ -23,3 +23,12 @@ python3 manage.py migrate
 ```bash
 python3 manage.py runserver
 ```
+
+## What can you do?
+  - create new user and login;
+  - start new topic;
+  - view the list of created topics;
+  - comment topic.
+ 
+ ## What can you do in the near future?
+ 

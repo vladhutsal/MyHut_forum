@@ -1,0 +1,17 @@
+{% extends 'components/login_signup_form.html'%}
+
+{% block title%}Become a Cossack{% endblock title %}
+
+{% block btn %}
+Become a Cossack
+{% endblock btn %}
+
+{% block link %}
+<p class="message">Already registered? <a href="{% url 'login:user_login' %}"> Log in here</a></p>
+{% endblock link %}
+
+{% block errors %}
+ {% if form.username.errors %}
+  <p class="msg">{{ form.username.errors.as_text|cut:"* " }}</p>
+ {% endif %} 
+{% endblock errors%}

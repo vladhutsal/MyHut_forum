@@ -1,4 +1,4 @@
-{% extends 'homepage/layout.html' %}
+{% extends 'pages/layout.html' %}
   {% load static %}
   {% block title %}{{ block.super }} | {{ topic_object.title }}{% endblock title %}
   {% block head %}
@@ -18,6 +18,7 @@
   {% endblock head_btn %}
 
   {% block content %}
+<!-- cycle it -->
   <div class="container">
     <ul class="border rounded muted-table d-flex justify-content-around">
       <li class="text-muted">Rating: {{ topic_object.rating }}</li>
@@ -38,7 +39,7 @@
         <button class="my-auto forum-button action"
               type="button"
               data-toggle="collapse"
-              data-target="#addComment">
+              data-target="#addComment" {% if not topic_comments %} disabled {% endif %}>
               Add comment
         </button>
     </div>
@@ -69,7 +70,7 @@
               <li class="text-muted col-6">Rating: {{ topic_comment.likes.count }}
                 <div class="d-inline-block">
                   <form method="POST"
-                        action="{% url 'homepage:comment_likes' topic_object.slug topic_comment.pk %}">
+                        action="">
                     {% csrf_token %}
                     <button class="vote_up_button" type="submit" name="vote_up_button" value="topic_comment.pk">like</button>
                     <button class="" type="submit" name="down">-</button>
@@ -90,6 +91,7 @@
                 <div class="dropdown-menu" id="actions">
                   <a class="dropdown-item" href="#">Reply</a>
                   <a class="dropdown-item" href="#">Edit</a>
+                  
                   <form method="POST">
                     {% csrf_token %}
                     <a class="dropdown-item" href="{% url 'homepage:delete_comment' topic_comment.pk %}">Delete</a>

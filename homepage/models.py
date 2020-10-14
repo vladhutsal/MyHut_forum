@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
@@ -23,7 +22,10 @@ class Topic(models.Model):
     slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    comments_count = models.PositiveIntegerField(blank=True, default=0)
 
+    class Meta:
+        ordering = ['-pk']
 
     def __str__(self):
         return '{} - {} - ({})'.format(self.pk, self.title, self.user)

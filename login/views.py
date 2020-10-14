@@ -14,7 +14,7 @@ def user_login(request):
         user = authenticate(username=name, password=passw)
         login(request, user)
         return redirect('homepage:home_page')
-    return render(request, 'login/login.html', {'form': form})
+    return render(request, 'pages/login.html', {'form': form})
         
 
 def user_signup(request):
@@ -29,7 +29,7 @@ def user_signup(request):
         new_user = authenticate(username=user.username, password=password)
         login(request, new_user)
         return redirect('homepage:home_page')
-    return render(request, 'login/signup.html', {'form': form})
+    return render(request, 'pages/signup.html', {'form': form})
 
 
 def user_logout(request):

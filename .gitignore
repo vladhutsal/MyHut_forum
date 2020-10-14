@@ -3,8 +3,7 @@ media/
 .vscode
 *.pyc
 **/__pycache__
-**/migrations
+**/migrations/*
 *.py
-
-
+node_modules/
 *.sqlite3

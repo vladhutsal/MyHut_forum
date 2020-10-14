@@ -1,0 +1,19 @@
+{% extends 'components/login_signup_form.html'%}
+
+{% block title%}Login Hut{% endblock title %}
+
+{% block btn %}
+Enter Hut
+{% endblock btn %}
+
+{% block link %}
+<a href="{% url 'login:user_signup' %}">Or Become a Cossack here!</a>
+{% endblock link %}
+
+{% block errors %}
+  {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+      <p class="msg">{{ error }}</p>
+    {% endfor %}
+  {% endif %}
+{% endblock errors%}

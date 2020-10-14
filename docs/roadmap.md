@@ -30,6 +30,5 @@ organize CSS - done
 structure bootstrap - done
 class based views for home and topic pages
 
-test:
+repair:
 - gain comment perm
-- add/delete comment/topic

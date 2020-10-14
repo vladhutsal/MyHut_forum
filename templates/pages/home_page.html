@@ -1,4 +1,4 @@
-{% extends 'homepage/layout.html' %}
+{% extends 'pages/layout.html' %}
 
   {% block title %}{{ block.super }}{% endblock title %}
 
@@ -13,7 +13,7 @@
     <button class="my-auto forum-button action"
           type="button"
           data-toggle="collapse"
-          data-target="#addTopic">
+          data-target="#add_topic"{% if not topic_queryset %} disabled {% endif %}>
           Add topic:
     </button>
   {% endblock head_btn %}
@@ -23,8 +23,8 @@
 
 <!-- Topics header, add topic begin -->
   <div class="container mt-3">
-    <div class="collapse {% if not topic_queryset %} show {% endif %}" id="addTopic">
-      <form method="POST" class="form-group" action="{% url 'homepage:addTopic' %}">
+    <div class="collapse {% if not topic_queryset %} show {% endif %}" id="add_topic">
+      <form method="POST" class="form-group" action="{% url 'homepage:add_topic' %}">
         {% csrf_token %}
         <div class="form-row">
           <div class="col">

@@ -8,7 +8,8 @@ from homepage.forms import CommentForm, TopicForm
 
 from django.http import JsonResponse
 
-# Read views
+
+# auth decorator
 def home_page(request):
     if request.user.is_authenticated is False:
         return redirect('login:user_login')

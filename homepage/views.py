@@ -3,10 +3,12 @@ from django.contrib.contenttypes.models import ContentType
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from homepage.models import Topic, Comment
-from homepage.forms import CommentForm, TopicForm
+from .models import Topic, Comment
+from .forms import CommentForm, TopicForm
+from .serializers import TopicSerializer
 
-from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 # auth decorator
@@ -22,6 +24,13 @@ def home_page(request):
             'form': form
             }
         return render(request, 'pages/home_page.html', context)
+
+
+@api_view(['GET'])
+def topic_list(request, *args, **kwargs):
+    queryset = Topic.objects.all()
+    serialized = TopicSerializer(queryset, many=True)
+    return Response(serialized.data)
 
 
 def topic_page(request, slug):

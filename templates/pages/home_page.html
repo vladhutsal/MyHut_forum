@@ -43,27 +43,59 @@
   </div>
 <!-- end -->
 
+<div id='list'>
+
+</div>
+
 <!-- Topic list begin -->
   <div class="container">
     {% for topic in topic_queryset %}
-            <div class="card mb-4">
-              <div class="card-header d-flex justify-content-around">
-              <!-- go in loop -->
-                <p class="text-muted my-0">Author: {{ name }}</p>
-                <p class="text-muted my-0">Rating: 0</p>
-                <p class="text-muted my-0"> {{ topic.comm_count }}</p>
-              </div>
-              <div class="card-body">
-                <a href="{% url 'homepage:topic_page' topic.slug %}">
-                  <h2 class="card-title h5">{{ topic.title }}</h2>
-                </a>
-                <p class="card-text text-truncate">{{ topic.text }}</p>
-              </div>
-              <div class="card-footer">
-                <p class="my-0 text-muted">Tags:</p>
-              </div>
-            </div>
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-around">
+        <!-- go in loop -->
+          <p class="text-muted my-0">Author: {{ name }}</p>
+          <p class="text-muted my-0">Rating: 0</p>
+          <p class="text-muted my-0">Comments: {{ topic.comm_count }}</p>
+        </div>
+        <div class="card-body">
+          <a href="{% url 'homepage:topic_page' topic.slug %}">
+            <h2 class="card-title h5">{{ topic.title }}</h2>
+          </a>
+          <p class="card-text text-truncate">{{ topic.text }}</p>
+        </div>
+        <div class="card-footer">
+          <p class="my-0 text-muted">Tags:</p>
+        </div>
+      </div>
     {% endfor %}
   </div>
+
+<script>
+const topicsContainer = document.getElementById('list')
+loadTopics(topicsContainer)
+
+function loadTopics(topicsElement) {
+  const xhr = new XMLHttpRequest()
+  const method = 'GET'
+  const url = '/api_topic_list'
+  const responseType = 'json'
+
+  xhr.responseType = responseType
+  xhr.open(method, url)
+  xhr.onload = function() {
+    const topicList = xhr.response
+    console.log(topicList)
+  }
+  xhr.send()
+}
+
+
+
+
+
+</script>
+
+
+
   {% endblock content %}
             

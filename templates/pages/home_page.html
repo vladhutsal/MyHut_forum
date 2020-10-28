@@ -19,76 +19,90 @@
   {% endblock head_btn %}
 
   {% block content %}
-  <div class="container">
-
-<!-- Topics header, add topic begin -->
   <div class="container mt-3">
     <div class="collapse {% if not topic_queryset %} show {% endif %}" id="add_topic">
-      <form method="POST" class="form-group" action="{% url 'homepage:add_topic' %}">
+      <form class="form-group" id="newTopicForm" action="{% url 'homepage:add_topic' %}" method='POST'>
         {% csrf_token %}
         <div class="form-row">
           <div class="col">
-            {{ form.title }}
+            <input type='text' class="form-control" placeholder='Topic title' name='title' />
           </div>
-          <div class="col-2">
-            {{ form.tags }}
+          <div class="form-row">
+            <textarea class="form-control" placeholder="Topic content" name="text"></textarea>
           </div>
-        </div>
-        <div class="mt-3">
-          {{ form.text }}
         </div>
         <button class="ml-3 mt-2 forum-button post" type="submit">post</button>
       </form>
     </div>
   </div>
-<!-- end -->
 
-<div id='list'>
-
-</div>
 
 <!-- Topic list begin -->
-  <div class="container">
-    {% for topic in topic_queryset %}
-      <div class="card mb-4">
-        <div class="card-header d-flex justify-content-around">
-        <!-- go in loop -->
-          <p class="text-muted my-0">Author: {{ name }}</p>
-          <p class="text-muted my-0">Rating: 0</p>
-          <p class="text-muted my-0">Comments: {{ topic.comm_count }}</p>
-        </div>
-        <div class="card-body">
-          <a href="{% url 'homepage:topic_page' topic.slug %}">
-            <h2 class="card-title h5">{{ topic.title }}</h2>
-          </a>
-          <p class="card-text text-truncate">{{ topic.text }}</p>
-        </div>
-        <div class="card-footer">
-          <p class="my-0 text-muted">Tags:</p>
-        </div>
-      </div>
-    {% endfor %}
+  <div class="container" id="topics">
+      topics goes here
   </div>
 
+
 <script>
-const topicsContainer = document.getElementById('list')
-loadTopics(topicsContainer)
+const topicsContainer = document.getElementById('topics')
+const topicSubmitForm = document.getElementById('newTopicForm')
 
-function loadTopics(topicsElement) {
-  const xhr = new XMLHttpRequest()
-  const method = 'GET'
-  const url = '/api_topic_list'
-  const responseType = 'json'
+topicSubmitForm.addEventListener('submit', createTopic)
+getTopicsList(topicsContainer)
 
-  xhr.responseType = responseType
-  xhr.open(method, url)
-  xhr.onload = function() {
-    const topicList = xhr.response
-    console.log(topicList)
-  }
-  xhr.send()
+
+function getTopicsList(topicsEl) {
+  handleRequest('GET', 'api_topics/').then(response => {
+    var finalTopicArr = ""
+    const recievedData = response.response
+    console.log(recievedData)
+    for (var i=0; i<recievedData.length; i++) {
+      currentEl = generateTopicEl(recievedData[i])
+      finalTopicArr += currentEl  
+    }
+    topicsContainer.innerHTML = finalTopicArr
+  })
 }
 
+
+function handleRequest(method, url, data) {
+    const promise = new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.responseType = 'json'
+        xhr.open(method, url)
+        xhr.onload = () => {
+            resolve(xhr)
+        }
+        xhr.send(data)
+    })
+    return promise
+}
+
+
+generateTopicEl = (element) => {
+  var generatedTopicEl = "<div class='col-12 mx-auto border py-3 mb-4'>\
+  <h4><a href='topic/" + element.slug + "'>" + element.title + "</a></h4>\
+  <p>" + element.text + "</p>\
+  </div>"
+  return generatedTopicEl
+}
+
+
+function createTopic(event) {
+  event.preventDefault()
+  const topicForm = event.target
+  const newFormData = new FormData(topicForm)
+  handleRequest('POST', 'api_topics/create', newFormData).then(response => {
+    const status = response.status
+    const data = response.response
+    if (status == 201) {
+        const newTopic = generateTopicEl(data)
+        const topic = topicsContainer.innerHTML
+        topicsContainer.innerHTML = newTopic + topic
+        topicForm.reset()
+    }
+  })
+}
 
 
 

@@ -3,12 +3,12 @@ from django.contrib.contenttypes.models import ContentType
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Topic, Comment
-from .forms import CommentForm, TopicForm
-from .serializers import TopicSerializer
-
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
+from .models import Topic, Comment
+from .forms import CommentForm, TopicForm
+from .serializers import TopicSerializer, CreateTopicSerializer
 
 
 # auth decorator
@@ -16,14 +16,7 @@ def home_page(request):
     if request.user.is_authenticated is False:
         return redirect('login:user_login')
     else:
-        form = TopicForm(None)
-        topic_queryset = Topic.objects.all()
-        context = {
-            'name': request.user,
-            'topic_queryset': topic_queryset,
-            'form': form
-            }
-        return render(request, 'pages/home_page.html', context)
+        return render(request, 'pages/home_page.html')
 
 
 @api_view(['GET'])
@@ -31,6 +24,25 @@ def topic_list(request, *args, **kwargs):
     queryset = Topic.objects.all()
     serialized = TopicSerializer(queryset, many=True)
     return Response(serialized.data)
+
+
+@api_view(['POST'])
+def create_topic(request):
+    serialized = CreateTopicSerializer(data=request.POST)
+    if serialized.is_valid():
+        serialized.save(user=request.user)
+        return Response(serialized.data, status=201)
+    return Response({}, status=500)
+
+
+def add_topic(request):
+    form = TopicForm(request.POST)
+    if form.is_valid():
+        topic = form.save(commit=False)
+        topic.user = User.objects.get(username=request.user)
+        topic.save()
+        return redirect('homepage:topic_page', slug=topic.slug)
+    return redirect('homepage:home_page')
 
 
 def topic_page(request, slug):
@@ -58,14 +70,7 @@ def add_comment(request, slug):
     return redirect('homepage:topic_page', slug=topic.slug)
 
 
-def add_topic(request):
-    form = TopicForm(request.POST)
-    if form.is_valid():
-        topic = form.save(commit=False)
-        topic.user = User.objects.get(username=request.user)
-        topic.save()
-        return redirect('homepage:topic_page', slug=topic.slug)
-    return redirect('homepage:home_page')
+
 
 
 # Delete views

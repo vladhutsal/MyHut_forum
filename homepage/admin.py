@@ -1,10 +1,9 @@
 from django.contrib import admin
 
-from homepage.models import Topic, Comment, Tag
+from homepage.models import Topic, Comment
 
 admin.site.register(Topic)
 admin.site.register(Comment)
-admin.site.register(Tag)
 
 
 class ForumAdmin(admin.ModelAdmin):

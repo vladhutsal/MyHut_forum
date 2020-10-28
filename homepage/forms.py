@@ -1,10 +1,6 @@
 from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
-from django.forms import ModelForm
+from homepage.models import Topic, Comment
 
-from homepage.models import Topic, Comment, Tag
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -24,7 +20,7 @@ class CommentForm(forms.ModelForm):
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
-        fields = ('title', 'tags', 'text')
+        fields = ('title', 'text')
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -32,12 +28,7 @@ class TopicForm(forms.ModelForm):
             }),
             'text': forms.Textarea(attrs={
                     'rows': 5,
-                    'placeholder': 'Topic text', 
+                    'placeholder': 'Topic text',
                     'class': 'form-control'
                     }),
-            'tags': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Add tags'
-            })
-        } 
-                
+        }

@@ -6,7 +6,8 @@ app_name = 'homepage'
 urlpatterns = [
 
     path('', views.home_page, name='home_page'),
-    path('api_topic_list/', views.topic_list),
+    path('api_topics/', views.topic_list),
+    path('api_topics/create', views.create_topic),
 
     # old path
     path("topic/<slug:slug>/", views.topic_page, name="topic_page"),

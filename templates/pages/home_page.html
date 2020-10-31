@@ -13,34 +13,31 @@
     <button class="my-auto forum-button action"
           type="button"
           data-toggle="collapse"
-          data-target="#add_topic"{% if not topic_queryset %} disabled {% endif %}>
+          data-target="#add_topic">
           Add topic:
     </button>
   {% endblock head_btn %}
 
   {% block content %}
-  <div class="container mt-3">
-    <div class="collapse {% if not topic_queryset %} show {% endif %}" id="add_topic">
-      <form class="form-group" id="newTopicForm" action="{% url 'homepage:add_topic' %}" method='POST'>
+    <div class="collapse" id="add_topic">
+    <!--form-->
+      <form class="form-group mx-4" id="newTopicForm" action="/" method='POST'>
         {% csrf_token %}
         <div class="form-row">
-          <div class="col">
-            <input type='text' class="form-control" placeholder='Topic title' name='title' />
-          </div>
-          <div class="form-row">
-            <textarea class="form-control" placeholder="Topic content" name="text"></textarea>
-          </div>
+          <input type='text' class="form-control mb-2" placeholder='Topic title' name='title' />
         </div>
-        <button class="ml-3 mt-2 forum-button post" type="submit">post</button>
+        <div class="form-row">
+          <textarea class="form-control" placeholder="Topic content" name="text"></textarea>
+        </div>
+          <button class="ml-3 mt-2 forum-button post" type="submit">post</button>
       </form>
     </div>
-  </div>
+    
+    <!-- Topic list -->
+    <div id="topics">
+        topics goes here
+    </div>
 
-
-<!-- Topic list begin -->
-  <div class="container" id="topics">
-      topics goes here
-  </div>
 
 
 <script>
@@ -99,17 +96,14 @@ function createTopic(event) {
         const newTopic = generateTopicEl(data)
         const topic = topicsContainer.innerHTML
         topicsContainer.innerHTML = newTopic + topic
+        console.log(data)
         topicForm.reset()
     }
   })
 }
 
-
-
-
 </script>
 
 
-
-  {% endblock content %}
+{% endblock content %}
             

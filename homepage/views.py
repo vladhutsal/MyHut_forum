@@ -29,20 +29,10 @@ def topic_list(request, *args, **kwargs):
 @api_view(['POST'])
 def create_topic(request):
     serialized = CreateTopicSerializer(data=request.POST)
-    if serialized.is_valid():
+    if serialized.is_valid(raise_exception=True):
         serialized.save(user=request.user)
         return Response(serialized.data, status=201)
     return Response({}, status=500)
-
-
-def add_topic(request):
-    form = TopicForm(request.POST)
-    if form.is_valid():
-        topic = form.save(commit=False)
-        topic.user = User.objects.get(username=request.user)
-        topic.save()
-        return redirect('homepage:topic_page', slug=topic.slug)
-    return redirect('homepage:home_page')
 
 
 def topic_page(request, slug):

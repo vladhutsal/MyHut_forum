@@ -16,7 +16,7 @@ class Topic(models.Model):
     text = models.TextField()
     slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
-    
+
     class Meta:
         ordering = ['-pk']
 

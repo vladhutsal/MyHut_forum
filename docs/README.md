@@ -41,12 +41,12 @@ python3 manage.py runserver
   - message other user.
  
 ### 2. Topics list page:
-    - list topics through pages;
-    - add tags to your topic.
+  - list topics through pages;
+  - add tags to your topic.
  
 ### 3. Detail topic page:
-    - like comments and post;
-    - mark topic as favourite;
-    - sort comments;
-    - delete only topics and comments that belongs to you;
-    - delete any topic or comment, if you are an admin.
+  - like comments and post;
+  - mark topic as favourite;
+  - sort comments;
+  - delete only topics and comments that belongs to you;
+  - delete any topic or comment, if you are an admin.

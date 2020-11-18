@@ -19,5 +19,4 @@ def my_hut(request):
         'city': response['name'],
         'temp': response['main']['temp'],
     }
-    return render(request, 'my_hut/user_room.html')
-
+    return render(request, 'pages/user_room.html')

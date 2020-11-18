@@ -24,10 +24,10 @@
       <form class="form-group mx-4" id="newTopicForm" action="/" method='POST'>
         {% csrf_token %}
         <div class="form-row">
-          <input type='text' class="form-control mb-2" placeholder='Topic title' name='title' />
+          <input type='text' class="form-control mb-2" placeholder='Topic title' name='title' required />
         </div>
         <div class="form-row">
-          <textarea class="form-control" placeholder="Topic content" name="text"></textarea>
+          <textarea class="form-control" placeholder="Topic content" name="text" required></textarea>
         </div>
           <button class="ml-3 mt-2 forum-button post" type="submit">post</button>
       </form>
@@ -87,16 +87,14 @@ generateTopicEl = (element) => {
 
 function createTopic(event) {
   event.preventDefault()
+  console.log(event)
   const topicForm = event.target
   const newFormData = new FormData(topicForm)
   handleRequest('POST', 'api_topics/create', newFormData).then(response => {
     const status = response.status
     const data = response.response
     if (status == 201) {
-        const newTopic = generateTopicEl(data)
-        const topic = topicsContainer.innerHTML
-        topicsContainer.innerHTML = newTopic + topic
-        console.log(data)
+        getTopicsList(topicsContainer)
         topicForm.reset()
     }
   })

@@ -43,7 +43,8 @@ def create_slug(instance, new_slug=None):
     topic_obj = queryset.first()
     exists = queryset.exists()
     if exists:
-        new_slug = f'{slug}-{topic_obj.id}-{topic_obj.user}'
+        # lets cut topic_obj.user to only few chars, still make it uniq
+        new_slug = f'{slug}-{topic_obj.id}-{topic_obj.user}' 
         return create_slug(instance, new_slug=new_slug)
     return slug
 

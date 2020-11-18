@@ -1,4 +1,4 @@
-# Forum
+My Hut forum
 
 Forum is a Django website, that allows you to create user profile, add topics and discuss it.
 
@@ -30,22 +30,23 @@ python3 manage.py runserver
   - view the list of created topics;
   - comment topic;
   - delete comment;
-  ~~- gain accsess for deleting other people comments~~
+  
+  - ~~gain accsess for deleting other people comments~~
  
  ## What can you do in the near future?
- 1. Your user page:
+### 1. Your user page:
   - edit your user page;
   - become an admin of the Hut forum;
   - update your picture;
   - message other user.
  
- 2. Topics list page:
-  - list topics through pages;
-  - add tags to your topic.
+### 2. Topics list page:
+    - list topics through pages;
+    - add tags to your topic.
  
- 3. Detail topic page:
-  - like comments and post;
-  - mark topic as favourite;
-  - sort comments;
-  - delete only topics and comments that belongs to you;
-  - delete any topic or comment, if you are an admin.
+### 3. Detail topic page:
+    - like comments and post;
+    - mark topic as favourite;
+    - sort comments;
+    - delete only topics and comments that belongs to you;
+    - delete any topic or comment, if you are an admin.

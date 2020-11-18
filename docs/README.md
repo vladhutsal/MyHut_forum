@@ -1,4 +1,4 @@
-My Hut forum
+# My Hut forum
 
 Forum is a Django website, that allows you to create user profile, add topics and discuss it.
 

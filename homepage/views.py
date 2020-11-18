@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -58,8 +58,6 @@ def add_comment(request, slug):
         topic = get_object_or_404(Topic, slug=slug)
         Comment.objects.create(user=user, text=text, topic=topic)
     return redirect('homepage:topic_page', slug=topic.slug)
-
-
 
 
 

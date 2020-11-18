@@ -1,6 +1,7 @@
-# My Hut forum
+# MyHut forum
 
-Forum is a Django website, that allows you to create user profile, add topics and discuss it.
+MyHut is a Django website with Bootstrap, Django REST framework, and JS.
+ 
 
 ## Installation
 

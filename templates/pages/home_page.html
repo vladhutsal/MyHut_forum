@@ -41,6 +41,7 @@
 
 
 <script>
+// Big no no, let's split js code into separate file
 const topicsContainer = document.getElementById('topics')
 const topicSubmitForm = document.getElementById('newTopicForm')
 
@@ -50,27 +51,35 @@ getTopicsList(topicsContainer)
 
 function getTopicsList(topicsEl) {
   handleRequest('GET', 'api_topics/').then(response => {
-    var finalTopicArr = ""
-    const recievedData = response.response
-    console.log(recievedData)
-    for (var i=0; i<recievedData.length; i++) {
-      currentEl = generateTopicEl(recievedData[i])
-      finalTopicArr += currentEl  
+    let finalTopic = "";
+    const receivedData = response.response;
+    console.log(receivedData);
+
+    for (var i=0; i<receivedData.length; i++) {
+      currentEl = generateTopicEl(receivedData[i]);
+      finalTopicArr += currentEl;
     }
-    topicsContainer.innerHTML = finalTopicArr
+    topicsContainer.innerHTML = finalTopic;
+  }).catch((e) => {
+    console.error(e);
+    
+    return;
   })
 }
 
-
+// lets make requests with fetch method, not xhr
 function handleRequest(method, url, data) {
     const promise = new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
-        xhr.responseType = 'json'
-        xhr.open(method, url)
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'json';
+        xhr.open(method, url);
         xhr.onload = () => {
-            resolve(xhr)
+            return resolve(xhr);
         }
-        xhr.send(data)
+        xhr.onerror = () => {
+          return reject(xhr);
+        }
+        xhr.send(data);
     })
     return promise
 }
@@ -86,17 +95,29 @@ generateTopicEl = (element) => {
 
 
 function createTopic(event) {
-  event.preventDefault()
-  console.log(event)
-  const topicForm = event.target
-  const newFormData = new FormData(topicForm)
+
+  event.preventDefault();
+  const topicForm = event.target;
+  const newFormData = new FormData(topicForm);
+
   handleRequest('POST', 'api_topics/create', newFormData).then(response => {
-    const status = response.status
-    const data = response.response
-    if (status == 201) {
-        getTopicsList(topicsContainer)
-        topicForm.reset()
+    const status = response.status;
+    const data = response.response;
+
+    // early return method, easier to look at the code
+    if (![201, 200].includes(status)) {
+      console.error({status, data, message: 'Something unexpected happened'});
+
+      return;
     }
+
+    const newTopic = generateTopicEl(data);
+    const topic = topicsContainer.innerHTML;
+    topicsContainer.innerHTML = newTopic + topic;
+
+    console.log(data);
+
+    topicForm.reset();
   })
 }
 

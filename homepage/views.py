@@ -28,9 +28,8 @@ def topic_list(request, *args, **kwargs):
 
 @api_view(['POST'])
 def create_topic(request):
-    serialized = CreateTopicSerializer(data=request.POST)
-    print(dir(serialized))
-    print(serialized.fields)
+    serialized = CreateTopicSerializer(data=request.data)
+    print(request.data)
 
     if serialized.is_valid(raise_exception=True):
         serialized.save(user=request.user)

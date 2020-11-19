@@ -23,17 +23,18 @@ def home_page(request):
 def topic_list(request, *args, **kwargs):
     queryset = Topic.objects.all()
     serialized = TopicSerializer(queryset, many=True)
+
     return Response(serialized.data)
 
 
 @api_view(['POST'])
 def create_topic(request):
     serialized = CreateTopicSerializer(data=request.data)
-    print(request.data)
 
     if serialized.is_valid(raise_exception=True):
         serialized.save(user=request.user)
         return Response(serialized.data, status=201)
+
     return Response({}, status=500)
 
 
@@ -58,6 +59,7 @@ def add_comment(request, topic_id):
         text = request.POST.get('text')
         topic = get_object_or_404(Topic, id=topic_id)
         Comment.objects.create(user=user, text=text, topic=topic)
+
     return redirect('homepage:topic_page', topic_id=topic.id)
 
 
@@ -65,7 +67,12 @@ def delete_comment(request, comment_pk):
     current_comment = Comment.objects.get(pk=comment_pk)
     current_comment.delete()
     topic_id = current_comment.topic.id
+    
     return redirect('homepage:topic_page', topic_id=topic_id)
+
+
+def handle_comment_likes(request, comment_id):
+    pass
 
 
 # def gain_delete_permission(request, topic_id):

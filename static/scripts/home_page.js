@@ -54,7 +54,6 @@ async function createTopic(event) {
 
 // lets make requests with fetch method, not xhr
 async function handleRequest(url, reqData) {
-
     const res = await fetch(url, reqData);
     const status = res.status;
     const resData = await res.json();
@@ -86,3 +85,5 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
+module.exports = { handleRequest };

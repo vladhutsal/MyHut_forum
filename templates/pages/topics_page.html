@@ -69,12 +69,10 @@
             <ul class="muted-table mb-0 mr-auto d-sm-block d-md-flex row justify-content-start col-10">
               <li class="text-muted col-6">Rating: {{ topic_comment.likes.count }}
                 <div class="d-inline-block">
-                  <form method="POST"
-                        action="">
-                    {% csrf_token %}
-                    <button class="vote_up_button" type="submit" name="vote_up_button" value="topic_comment.pk">like</button>
-                    <button class="" type="submit" name="down">-</button>
-                  </form>
+
+                    <button id="likeBtn-{{ topic_comment.pk }}" value='like' onclick="handleLikes(event, {{ topic_comment.pk }})">like</button>
+                    <button id="dislikeBtn-{{ topic_comment.pk }}" value='dislike' onclick="handleLikes(event, {{ topic_comment.pk }})">dislike</button>
+
                 </div>             
               </li>
               <li class="text-muted col-6">Date: 25.09.2020</li>
@@ -106,4 +104,5 @@
   </div>
 <!-- end -->
 
+<script src={% static 'scripts/topic_page.js' %}></script>
 {% endblock content %}

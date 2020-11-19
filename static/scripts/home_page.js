@@ -7,7 +7,7 @@ getTopicsList(topicsContainer)
 
 function getTopicsList(topicsEl) {
   handleRequest('api/topics/').then((data) => {
-    console.log(data)
+
 
     let finalTopic = "";
 
@@ -25,7 +25,7 @@ function getTopicsList(topicsEl) {
 
 // lets make requests with fetch method, not xhr
 async function handleRequest(url, data) {
-    console.log(data)
+
     const res = await fetch(url, data);
     const responseData = await res.json();
     return responseData;
@@ -44,36 +44,29 @@ generateTopicEl = (element) => {
 function createTopic(event) {
   event.preventDefault();
   const newFormData = new FormData(event.target);
-  const data = {
+  const newTopicObj = {
     title: newFormData.get('title'),
     text: newFormData.get('text')
-  }
+  };
 
-  handleRequest('api/topics/create', {
+  const requestData = {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify(newTopicObj),
     headers: {
       'Content-type': 'application/json',
       'X-CSRFToken': getCookie('csrftoken')
-    },
-  }).then(response => {
-        console.log(response)
+    }};
 
-  // early return method, easier to look at the code
-  if (![201, 200].includes(status)) {
-    console.error({status, data, message: 'Something unexpected happened'});
-
-    return;
-  }
-
-  const newTopic = generateTopicEl(data);
-  const topic = topicsContainer.innerHTML;
-  topicsContainer.innerHTML = newTopic + topic;
-
-  console.log(data);
-
-  topicForm.reset();
+  handleRequest('api/topics/create', requestData)
+    .then((res) => {
+    const newTopic = generateTopicEl(res);
+    const topic = topicsContainer.innerHTML;
+    topicsContainer.innerHTML = newTopic + topic;
+  
+    topicForm.reset();
   })
+    
+
 }
 
 function getCookie(name) {

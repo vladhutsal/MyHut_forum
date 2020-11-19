@@ -21,9 +21,8 @@
   {% block content %}
     <div class="collapse" id="add_topic">
       <form class="form-group mx-4" id="newTopicForm" action="/" method='POST'>
-        {% csrf_token %}
         <div class="form-row">
-          <input type='text' class="form-control mb-2" placeholder='Topic title' name='title' required />
+          <input type='text' class="form-control mb-2" placeholder='Topic title' name='title' value='' required />
         </div>
         <div class="form-row">
           <textarea class="form-control" placeholder="Topic content" name="text" required></textarea>

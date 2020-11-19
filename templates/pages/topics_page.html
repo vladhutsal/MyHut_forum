@@ -9,12 +9,12 @@
 <!-- Title, delete accsess, info, topic begin -->
   {% block page %}{{ topic_object.title }}{% endblock page %}
     {% block head_btn %}
-      <form class="align-self-center" action="{% url 'homepage:gain_delete_perm' topic_object.slug %}" method="POST">
+      {% comment %} <form class="align-self-center" action="{% url 'homepage:gain_delete_perm' topic_object.slug %}" method="POST">
         {% csrf_token %}
         <button type="submit" class="forum-button action">
             Gain comments-delete access
         </button>
-      </form>
+      </form> {% endcomment %}
   {% endblock head_btn %}
 
   {% block content %}
@@ -46,7 +46,7 @@
     <div class="container mt-3">
       <div class="collapse {% if not topic_comments %} show {% endif %}" id="addComment">
         <div class="container">
-          <form method="POST" action="{% url 'homepage:add_comment' topic_object.slug %}">
+          <form method="POST" action="{% url 'homepage:add_comment' topic_object.id %}">
             {% csrf_token %}
             {{ form.text }}
             <button class="ml-3 mt-2 forum-button post" type="submit">post<vote/button>

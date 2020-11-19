@@ -20,10 +20,11 @@ class Topic(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField()
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    text = models.TextField()
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    likes = models.ManyToManyField(User, blank=True, related_name='comment_like')
 
     class Meta:
         ordering = ['-pk']

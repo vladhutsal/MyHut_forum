@@ -29,14 +29,17 @@ def topic_list(request, *args, **kwargs):
 @api_view(['POST'])
 def create_topic(request):
     serialized = CreateTopicSerializer(data=request.POST)
+    print(dir(serialized))
+    print(serialized.fields)
+
     if serialized.is_valid(raise_exception=True):
         serialized.save(user=request.user)
         return Response(serialized.data, status=201)
     return Response({}, status=500)
 
 
-def topic_page(request, slug):
-    topic_object = get_object_or_404(Topic, slug=slug)
+def topic_page(request, topic_id):
+    topic_object = get_object_or_404(Topic, id=topic_id)
 
     topic_comments = Comment.objects.filter(topic=topic_object)
     user = request.user
@@ -50,32 +53,28 @@ def topic_page(request, slug):
     return render(request, 'pages/topics_page.html', context)
 
 
-# Create views
-def add_comment(request, slug):
+def add_comment(request, topic_id):
     if request.method == "POST":
         user = request.user
         text = request.POST.get('text')
-        topic = get_object_or_404(Topic, slug=slug)
+        topic = get_object_or_404(Topic, id=topic_id)
         Comment.objects.create(user=user, text=text, topic=topic)
-    return redirect('homepage:topic_page', slug=topic.slug)
+    return redirect('homepage:topic_page', topic_id=topic.id)
 
 
-
-# Delete views
 def delete_comment(request, comment_pk):
     current_comment = Comment.objects.get(pk=comment_pk)
     current_comment.delete()
-    slug = current_comment.topic.slug
-    return redirect('homepage:topic_page', slug=slug)
+    topic_id = current_comment.topic.id
+    return redirect('homepage:topic_page', topic_id=topic_id)
 
 
-# Update views
-def gain_delete_permission(request, slug):
-    content_type = ContentType.objects.get_for_model(Comment)
-    permission = Permission.objects.get(
-            codename="delete_comment",
-            content_type=content_type,
-        )
-    user = request.user
-    user.user_permissions.add(permission)
-    return redirect('homepage:topic_page', slug=slug)
+# def gain_delete_permission(request, topic_id):
+#     content_type = ContentType.objects.get_for_model(Comment)
+#     permission = Permission.objects.get(
+#             codename="delete_comment",
+#             content_type=content_type,
+#         )
+#     user = request.user
+#     user.user_permissions.add(permission)
+#     return redirect('homepage:topic_page', topic_id=topic_id)

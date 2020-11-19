@@ -1,53 +1,32 @@
-const topicsContainer = document.getElementById('topics')
-const topicSubmitForm = document.getElementById('newTopicForm')
+const topicsContainer = document.getElementById('topics');
+const topicSubmitForm = document.getElementById('newTopicForm');
 
-topicSubmitForm.addEventListener('submit', createTopic)
-getTopicsList(topicsContainer)
-
-
-function getTopicsList(topicsEl) {
-  handleRequest('api/topics/').then((data) => {
+topicSubmitForm.addEventListener('submit', createTopic);
+getTopicsList(topicsContainer);
 
 
-    let finalTopic = "";
+async function getTopicsList(topicsEl) {
+  const response = await handleRequest('api/topics/');
+  const data = response.resData;
+  let finalTopic = "";
 
-    for (var i=0; i<data.length; i++) {
-      currentEl = generateTopicEl(data[i]);
-      finalTopic += currentEl;
-      }
+  for (let i=0; i<data.length; i++) {
+    currentEl = generateTopicEl(data[i]);
+    finalTopic += currentEl;
+    }
 
-    topicsEl.innerHTML = finalTopic;
-  });
-
+  topicsEl.innerHTML = finalTopic;
   return;
 }
 
 
-// lets make requests with fetch method, not xhr
-async function handleRequest(url, data) {
-
-    const res = await fetch(url, data);
-    const responseData = await res.json();
-    return responseData;
-}
-
-
-generateTopicEl = (element) => {
-  var generatedTopicEl = "<div class='col-12 mx-auto border py-3 mb-4'>\
-  <h4><a href='topic/" + element.id + "'>" + element.title + "</a></h4>\
-  <p>" + element.text + "</p>\
-  </div>"
-  return generatedTopicEl
-}
-
-
-function createTopic(event) {
+async function createTopic(event) {
   event.preventDefault();
   const newFormData = new FormData(event.target);
   const newTopicObj = {
     title: newFormData.get('title'),
     text: newFormData.get('text')
-  };
+  }
 
   const requestData = {
     method: 'POST',
@@ -57,17 +36,40 @@ function createTopic(event) {
       'X-CSRFToken': getCookie('csrftoken')
     }};
 
-  handleRequest('api/topics/create', requestData)
-    .then((res) => {
-    const newTopic = generateTopicEl(res);
-    const topic = topicsContainer.innerHTML;
-    topicsContainer.innerHTML = newTopic + topic;
-  
-    topicForm.reset();
-  })
-    
+  const response = await handleRequest('api/topics/create', requestData);
+  const status = response.status;
+  const data = response.resData;
+    if (![201, 200].includes(status)) {
+      console.error({status, message: 'Something unexpected happened'});
 
+    } else {
+      const newTopicEl = generateTopicEl(data);
+      const topicsList = topicsContainer.innerHTML;
+      topicsContainer.innerHTML = newTopicEl + topicsList;
+    
+      event.target.reset();
+    };
 }
+
+
+// lets make requests with fetch method, not xhr
+async function handleRequest(url, reqData) {
+
+    const res = await fetch(url, reqData);
+    const status = res.status;
+    const resData = await res.json();
+    return {status, resData};
+}
+
+
+generateTopicEl = (element) => {
+  let generatedTopicEl = "<div class='col-12 mx-auto border py-3 mb-4'>\
+  <h4><a href='topic/" + element.id + "'>" + element.title + "</a></h4>\
+  <p>" + element.text + "</p>\
+  </div>"
+  return generatedTopicEl;
+}
+
 
 function getCookie(name) {
   let cookieValue = null;

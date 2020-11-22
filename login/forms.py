@@ -3,11 +3,23 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 
-class UserLoginForm(forms.Form):
-    username = forms.CharField(max_length=150, required=True,
-        widget=forms.TextInput(attrs={'placeholder': 'Your Hut alias, cossack?', 'id': 'username_id'}))
-    password = forms.CharField(required=True,
-        widget=forms.PasswordInput(attrs={'placeholder': 'Code word?'}))
+class UserLoginForm(forms.ModelForm):
+    # username = forms.CharField(max_length=150, required=True)
+    # password = forms.CharField(required=True)
+
+    class Meta:
+        name_attrs = {
+            'placeholder': 'Your Hut alias, cossack?',
+            'id': 'username_id'
+        }
+        pass_attrs = {'placeholder': 'Code word?'}
+
+        model = User
+        fields = ('username', 'password')
+        widgets = {
+            'username': forms.TextInput(attrs=name_attrs),
+            'password': forms.PasswordInput(attrs=pass_attrs)
+        }
 
     def clean(self):
         username = self.cleaned_data.get('username').lower()
@@ -19,21 +31,26 @@ class UserLoginForm(forms.Form):
                     raise forms.ValidationError('Your code word is wrong!')
             except ObjectDoesNotExist:
                 raise forms.ValidationError('There are no cossack like you in our Hut!')
-        return super(UserLoginForm, self).clean()
+            return super().clean()
 
 
 class UserRegForm(forms.ModelForm):
-    username = forms.CharField(max_length=150, required=True,
-            widget=forms.TextInput(attrs={'placeholder': 'Your cossack alias?'}))
-    password = forms.CharField(required=True,
-            widget=forms.PasswordInput(attrs={'placeholder': 'What is your code word?'}))
+    # username = forms.CharField(max_length=150, required=True)
+    # password = forms.CharField(required=True)
+
+    name_attr = {'placeholder': 'Your cossack alias?'}
+    pass_attr = {'placeholder': 'What is your code word?'}
 
     class Meta:
+        name_attr = {'placeholder': 'Your cossack alias?'}
+        pass_attr = {'placeholder': 'What is your code word?'}
+
         model = User
-        fields = [
-            'username',
-            'password'
-        ]
+        fields = ('username', 'password')
+        widgets = {
+            'username': forms.TextInput(attrs=name_attr),
+            'password': forms.PasswordInput(attrs=pass_attr)
+        }
 
     def clean_username(self):
         username = self.cleaned_data.get('username').lower()

@@ -67,7 +67,7 @@ def delete_comment(request, comment_pk):
     current_comment = Comment.objects.get(pk=comment_pk)
     current_comment.delete()
     topic_id = current_comment.topic.id
-    
+
     return redirect('homepage:topic_page', topic_id=topic_id)
 
 
